@@ -91,7 +91,7 @@ h1{
     text-align:center;
 }
 /* Botão de rota */
-.map-button{
+.map-button, .back-button{
     display:inline-block;
     padding:12px 25px;
     border-radius:30px;
@@ -101,27 +101,22 @@ h1{
     text-decoration:none;
     box-shadow:0 5px 15px rgba(0,0,0,0.2);
     transition:all 0.3s ease;
+    animation:buttonPulse 2s infinite;
 }
-.map-button:hover{
+.map-button:hover, .back-button:hover{
     transform:scale(1.05);
-    box-shadow:0 0 20px rgba(255,215,180,0.8),0 8px 25px rgba(0,0,0,0.3);
+    box-shadow:0 0 25px rgba(255,215,180,0.8),0 8px 25px rgba(0,0,0,0.3);
+}
+/* Animação dos botões */
+@keyframes buttonPulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.03);}
+    100%{transform:scale(1);}
 }
 /* Botão voltar */
 .back-button{
-    display:inline-block;
-    padding:12px 25px;
     margin-top:40px;
-    border-radius:30px;
-    background:linear-gradient(45deg,#c68657,#d9a066);
-    color:white;
     font-size:18px;
-    text-decoration:none;
-    box-shadow:0 5px 15px rgba(0,0,0,0.2);
-    transition:all 0.3s ease;
-}
-.back-button:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 20px rgba(255,215,180,0.8),0 8px 25px rgba(0,0,0,0.3);
 }
 @media(max-width:900px){
     .content{flex-direction:column;align-items:center;}
@@ -131,6 +126,11 @@ h1{
 </style>
 </head>
 <body>
+
+<!-- Música de fundo -->
+<audio id="bgmusic" loop autoplay>
+    <source src="musica.mp3" type="audio/mp3">
+</audio>
 
 <div class="bg"></div>
 
@@ -153,6 +153,19 @@ h1{
 
     <a href="index.html" class="back-button">⬅ Voltar</a>
 </div>
+
+<script>
+window.addEventListener('load', () => {
+    const audio = document.getElementById('bgmusic');
+    audio.volume = 0.15; // volume suave
+    const playPromise = audio.play();
+    if (playPromise !== undefined){
+        playPromise.catch(() => {
+            document.body.addEventListener('click',()=>{ audio.play(); }, {once:true});
+        });
+    }
+});
+</script>
 
 </body>
 </html>
