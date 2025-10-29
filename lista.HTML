@@ -5,100 +5,131 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lista de Presentes 💝</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Poppins',sans-serif;
+  text-align:center;
+  background:url('imagens/fundo.jpg') no-repeat center center fixed;
+  background-size:cover;
+  min-height:100vh;
+  color:#7b3f00;
+}
+.overlay{
+  background:rgba(245,230,220,0.85);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  z-index:2;
+  position:relative;
+}
+h1{font-size:26px;color:#7b3f00;margin-bottom:25px;}
+.button{
+  position:relative;
+  display:block;
+  width:80%;
+  max-width:300px;
+  padding:15px;
+  margin:12px 0;
+  border-radius:30px;
+  background:linear-gradient(45deg,#c68657,#d9a066);
+  color:white;
+  font-size:18px;
+  text-decoration:none;
+  overflow:hidden;
+  transition:all 0.3s ease;
+  cursor:pointer;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+.button:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 15px rgba(255,215,180,0.8),0 8px 20px rgba(0,0,0,0.3);
+}
+#countdown{
+  font-size:18px;
+  margin-top:30px;
+  color:#7b3f00;
+  background:transparent;
+  box-shadow:none;
+  text-shadow:1px 1px 3px rgba(0,0,0,0.5);
+}
+@media(max-width:600px){
+  h1{font-size:22px;}
+  #countdown{font-size:16px;}
+  .button{font-size:16px;padding:12px;}
+}
 
-  body {
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
-    background: url('imagens/fundo.jpg') no-repeat center center fixed;
-    background-size: cover;
-    position: relative;
-    overflow: hidden;
-    min-height: 100vh;
-  }
-
-  .overlay {
-    background: rgba(245, 230, 220, 0.85);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    position: relative;
-    z-index: 2;
-  }
-
-  h1 {
-    font-size: 26px;
-    color: #7b3f00;
-    margin-bottom: 25px;
-  }
-
-  .button {
-    position: relative;
-    display: block;
-    width: 80%;
-    max-width: 300px;
-    padding: 15px;
-    margin: 12px 0;
-    border-radius: 30px;
-    background: linear-gradient(45deg, #c68657, #d9a066);
-    color: white;
-    font-size: 18px;
-    text-decoration: none;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  }
-
-  .button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(255, 215, 180, 0.8), 0 8px 20px rgba(0,0,0,0.3);
-  }
-
-  /* Contagem regressiva */
-  #countdown {
-    font-size: 18px;
-    margin-top: 30px;
-    color: #6a3700;
-    background: rgba(255,255,255,0.7);
-    padding: 10px 25px;
-    border-radius: 20px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-  }
+/* Partículas da explosão */
+.particle {
+  position:absolute; width:6px; height:6px; border-radius:50%;
+  background:#fff0db; pointer-events:none; animation:explode 0.6s forwards;
+}
+@keyframes explode{
+  0%{opacity:1; transform:translate(0,0) scale(1);}
+  100%{opacity:0; transform:translate(var(--x), var(--y)) scale(0.5);}
+}
 </style>
 </head>
 <body>
 
+<!-- Música de fundo -->
+<audio id="bgmusic" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2023/05/17/audio_7a7f3eab17.mp3?filename=romantic-piano-instrumental-14304.mp3" type="audio/mp3">
+</audio>
+
 <div class="overlay">
-  <h1>🎁 Escolha uma das nossas listas de presentes 💖</h1>
+<h1>🎁 Nossas listas de presentes</h1>
 
-  <div class="button" onclick="window.location.href='https://www.querodecasamento.com.br/lista-de-casamento/carolina-pereira--anderson-henrique'">🌹 Quero de Casamento</div>
+<div class="button" onclick="explodeAndGo(event,'https://www.querodecasamento.com.br/lista-de-casamento/carolina-pereira--anderson-henrique')">Lista de Presente 1</div>
+<div class="button" onclick="explodeAndGo(event,'http://site.lejour.com.br/lista-de-presentes/carolina-e-anderson')">Lista de Presente 2</div>
 
-  <div class="button" onclick="window.location.href='http://site.lejour.com.br/lista-de-presentes/carolina-e-anderson'">💝 Lejour</div>
-
-  <div id="countdown"></div>
+<div id="countdown"></div>
 </div>
 
 <script>
-  const countdownEl = document.getElementById("countdown");
-  const weddingDate = new Date("2026-05-23T00:00:00").getTime();
+// Música automática
+window.addEventListener('load', function(){
+  const audio=document.getElementById('bgmusic');
+  audio.volume=0.5;
+  audio.play().catch(()=>{ document.body.addEventListener('click',()=>{audio.play();},{once:true}); });
+});
 
-  setInterval(() => {
-    const now = new Date().getTime();
-    const diff = weddingDate - now;
-    if (diff <= 0) {
-      countdownEl.innerHTML = "🎉 O grande dia chegou! 🎊";
-      return;
-    }
-    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const s = Math.floor((diff % (1000 * 60)) / 1000);
-    countdownEl.innerHTML = `${d} dias, ${h}h ${m}m ${s}s 💞`;
-  }, 1000);
+// Explosão dos botões
+function explodeAndGo(e,url){
+  const button=e.currentTarget;
+  for(let i=0;i<20;i++){
+    const p=document.createElement('span');
+    p.classList.add('particle');
+    const x=(Math.random()-0.5)*300+'px';
+    const y=(Math.random()-0.5)*300+'px';
+    p.style.setProperty('--x',x);
+    p.style.setProperty('--y',y);
+    p.style.left=(e.offsetX-3)+'px';
+    p.style.top=(e.offsetY-3)+'px';
+    button.appendChild(p);
+    setTimeout(()=>p.remove(),600);
+  }
+  button.style.transform='scale(0.9)';
+  button.style.opacity='0';
+  button.style.transition='all 0.6s ease';
+  setTimeout(()=>{window.location.href=url;},800);
+}
+
+// Contagem regressiva
+const countdownEl=document.getElementById("countdown");
+const weddingDate=new Date("2026-05-23T00:00:00").getTime();
+setInterval(()=>{
+  const now=new Date().getTime();
+  const diff=weddingDate-now;
+  if(diff<=0){ countdownEl.innerHTML="🎉 O grande dia chegou! 🎊"; return;}
+  const d=Math.floor(diff/(1000*60*60*24));
+  const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+  const m=Math.floor((diff%(1000*60*60))/(1000*60));
+  const s=Math.floor((diff%(1000*60))/1000);
+  countdownEl.innerHTML=`${d} dias, ${h}h ${m}m ${s}s`;
+},1000);
 </script>
 
 </body>
