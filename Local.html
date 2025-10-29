@@ -34,13 +34,21 @@ body, html{
     padding:40px 20px;
     min-height:100vh;
 }
+/* Títulos */
 h1{
     font-size:32px;
-    margin-bottom:40px;
     color:#7b3f00;
     text-align:center;
     text-shadow:1px 1px 3px rgba(0,0,0,0.2);
+    margin-bottom:15px;
 }
+h2{
+    font-size:20px;
+    color:#7b3f00;
+    margin-bottom:30px;
+    text-align:center;
+}
+/* Conteúdo lado a lado */
 .content{
     display:flex;
     flex-wrap:wrap;
@@ -50,6 +58,7 @@ h1{
     max-width:1000px;
     width:100%;
 }
+/* Imagem do local */
 .local-img{
     flex:1;
     min-width:300px;
@@ -58,7 +67,10 @@ h1{
     box-shadow:0 10px 25px rgba(0,0,0,0.3);
     transition:transform 0.3s ease;
 }
-.local-img:hover{transform:scale(1.03);}
+.local-img:hover{
+    transform:scale(1.03);
+}
+/* Caixa do mapa */
 .map-box{
     flex:1;
     min-width:300px;
@@ -72,8 +84,19 @@ h1{
     align-items:center;
     gap:15px;
 }
-.map-box iframe{width:100%; height:250px; border-radius:12px; border:0;}
-.address{font-weight:bold; font-size:18px; text-align:center;}
+.map-box iframe{
+    width:100%;
+    height:250px;
+    border-radius:12px;
+    border:0;
+}
+/* Endereço */
+.address{
+    font-weight:bold;
+    font-size:18px;
+    text-align:center;
+}
+/* Botões */
 .map-button, .back-button{
     display:inline-block;
     padding:12px 25px;
@@ -95,7 +118,14 @@ h1{
     50%{transform:scale(1.03);}
     100%{transform:scale(1);}
 }
-.back-button{margin-top:40px; font-size:18px;}
+/* Contagem regressiva */
+#countdown{
+    font-size:20px;
+    margin-top:20px;
+    color:#7b3f00;
+    text-shadow:1px 1px 3px rgba(0,0,0,0.5);
+    text-align:center;
+}
 @media(max-width:900px){
     .content{flex-direction:column;align-items:center;}
     .local-img, .map-box{max-width:90%;}
@@ -106,18 +136,21 @@ h1{
 <body>
 
 <!-- Música de fundo -->
-<audio id="bgmusic" loop>
-    <source src="imagens/musica.mp3" type="audio/mp3">
+<audio id="bgmusic" loop autoplay>
+    <source src="musica.mp3" type="audio/mp3">
 </audio>
 
 <div class="bg"></div>
 
 <div class="overlay">
     <h1>📍 Local do Casamento</h1>
+    <h2>Contagem regressiva até o grande dia 💕</h2>
 
     <div class="content">
+        <!-- Foto do local -->
         <img src="https://acasaeventos.com.br/wp-content/uploads/2020/08/nossa-casa.jpg" alt="Nosso Local" class="local-img">
 
+        <!-- Caixa do mapa -->
         <div class="map-box">
             <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.946382018237!2d-46.68306508449117!3d-23.6221337680481!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5c8ee49fef4f%3A0x123456789abcdef!2sRua+Emilio+Mandri+95,+Nova+Caieiras,+SP!5e0!3m2!1spt-BR!2sbr!4v1600000000000!5m2!1spt-BR!2sbr" 
@@ -127,11 +160,37 @@ h1{
         </div>
     </div>
 
+    <div id="countdown"></div>
     <a href="index.html" class="back-button">⬅ Voltar</a>
 </div>
 
 <script>
-// Música contínua usando localStorage
-window.addEventListener('load', () => {
-    const audio = document.getElementById('bgmusic');
-    const storedTime =
+// Música automática suave
+window.addEventListener('load',()=>{
+    const audio=document.getElementById('bgmusic');
+    audio.volume=0.15;
+    const playPromise=audio.play();
+    if(playPromise!==undefined){
+        playPromise.catch(()=>{
+            document.body.addEventListener('click',()=>{audio.play();},{once:true});
+        });
+    }
+});
+
+// Contagem regressiva
+const countdownEl=document.getElementById("countdown");
+const weddingDate=new Date("2026-05-23T00:00:00").getTime(); // Ajuste a data para seu casamento
+setInterval(()=>{
+    const now=new Date().getTime();
+    const diff=weddingDate-now;
+    if(diff<=0){ countdownEl.innerHTML="🎉 O grande dia chegou! 🎊"; return;}
+    const d=Math.floor(diff/(1000*60*60*24));
+    const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+    const m=Math.floor((diff%(1000*60*60))/(1000*60));
+    const s=Math.floor((diff%(1000*60))/1000);
+    countdownEl.innerHTML=`${d} dias, ${h}h ${m}m ${s}s`;
+},1000);
+</script>
+
+</body>
+</html>
