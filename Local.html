@@ -42,11 +42,21 @@ h1{
     text-shadow:1px 1px 3px rgba(0,0,0,0.2);
     margin-bottom:15px;
 }
-h2{
-    font-size:20px;
-    color:#7b3f00;
-    margin-bottom:30px;
+/* Contagem regressiva */
+.countdown-container{
+    margin-bottom:40px; /* distancia do botão voltar */
     text-align:center;
+}
+.countdown-container h2{
+    font-size:20px;
+    margin-bottom:10px;
+    color:#7b3f00;
+}
+#countdown{
+    font-size:22px;
+    font-weight:bold;
+    color:#7b3f00;
+    text-shadow:1px 1px 3px rgba(0,0,0,0.5);
 }
 /* Conteúdo lado a lado */
 .content{
@@ -118,13 +128,10 @@ h2{
     50%{transform:scale(1.03);}
     100%{transform:scale(1);}
 }
-/* Contagem regressiva */
-#countdown{
-    font-size:20px;
-    margin-top:20px;
-    color:#7b3f00;
-    text-shadow:1px 1px 3px rgba(0,0,0,0.5);
-    text-align:center;
+/* Botão voltar separado */
+.back-button{
+    margin-top:60px; /* aumenta a distância do relógio */
+    font-size:18px;
 }
 @media(max-width:900px){
     .content{flex-direction:column;align-items:center;}
@@ -144,7 +151,12 @@ h2{
 
 <div class="overlay">
     <h1>📍 Local do Casamento</h1>
-    <h2>Contagem regressiva até o grande dia 💕</h2>
+
+    <!-- Contagem regressiva -->
+    <div class="countdown-container">
+        <h2>Contagem regressiva até o grande dia 💕</h2>
+        <div id="countdown"></div>
+    </div>
 
     <div class="content">
         <!-- Foto do local -->
@@ -160,7 +172,6 @@ h2{
         </div>
     </div>
 
-    <div id="countdown"></div>
     <a href="index.html" class="back-button">⬅ Voltar</a>
 </div>
 
@@ -179,7 +190,7 @@ window.addEventListener('load',()=>{
 
 // Contagem regressiva
 const countdownEl=document.getElementById("countdown");
-const weddingDate=new Date("2026-05-23T00:00:00").getTime(); // Ajuste a data para seu casamento
+const weddingDate=new Date("2026-05-23T00:00:00").getTime(); // ajuste da data
 setInterval(()=>{
     const now=new Date().getTime();
     const diff=weddingDate-now;
