@@ -34,7 +34,7 @@ body, html{
     padding:40px 20px;
     min-height:100vh;
 }
-/* Títulos */
+/* Título */
 h1{
     font-size:32px;
     color:#7b3f00;
@@ -42,7 +42,7 @@ h1{
     text-shadow:1px 1px 3px rgba(0,0,0,0.2);
     margin-bottom:15px;
 }
-/* Contagem regressiva com caixa de destaque */
+/* Contagem regressiva com caixa */
 .countdown-container{
     margin-bottom:40px; /* distancia do botão voltar */
     text-align:center;
@@ -156,7 +156,56 @@ h1{
 <div class="overlay">
     <h1>📍 Local do Casamento</h1>
 
-    <!-- Contagem regressiva com caixa -->
+    <!-- Contagem regressiva com caixa terracota -->
     <div class="countdown-container">
         <h2>Contagem regressiva até o grande dia 💕</h2>
-        <d
+        <div id="countdown"></div>
+    </div>
+
+    <div class="content">
+        <!-- Foto do local -->
+        <img src="https://acasaeventos.com.br/wp-content/uploads/2020/08/nossa-casa.jpg" alt="Nosso Local" class="local-img">
+
+        <!-- Caixa do mapa -->
+        <div class="map-box">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.946382018237!2d-46.68306508449117!3d-23.6221337680481!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5c8ee49fef4f%3A0x123456789abcdef!2sRua+Emilio+Mandri+95,+Nova+Caieiras,+SP!5e0!3m2!1spt-BR!2sbr!4v1600000000000!5m2!1spt-BR!2sbr" 
+                allowfullscreen="" loading="lazy"></iframe>
+            <div class="address">Rua Emilio Mandri, 95 - Nova Caieiras, SP</div>
+            <a class="map-button" href="https://www.google.com/maps/dir/?api=1&destination=Rua+Emilio+Mandri+95,+Nova+Caieiras,+SP" target="_blank">➤ Ver Rota</a>
+        </div>
+    </div>
+
+    <a href="index.html" class="back-button">⬅ Voltar</a>
+</div>
+
+<script>
+// Música automática suave
+window.addEventListener('load',()=>{
+    const audio=document.getElementById('bgmusic');
+    audio.volume=0.15;
+    const playPromise=audio.play();
+    if(playPromise!==undefined){
+        playPromise.catch(()=>{
+            document.body.addEventListener('click',()=>{audio.play();},{once:true});
+        });
+    }
+});
+
+// Contagem regressiva
+const countdownEl=document.getElementById("countdown");
+const weddingDate=new Date("2026-05-23T00:00:00").getTime(); // ajuste da data
+setInterval(()=>{
+    const now=new Date().getTime();
+    const diff=weddingDate-now;
+    if(diff<=0){ countdownEl.innerHTML="🎉 O grande dia chegou! 🎊"; return;}
+    const d=Math.floor(diff/(1000*60*60*24));
+    const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+    const m=Math.floor((diff%(1000*60*60))/(1000*60));
+    const s=Math.floor((diff%(1000*60))/1000);
+    countdownEl.innerHTML=`${d} dias, ${h}h ${m}m ${s}s`;
+},1000);
+</script>
+
+</body>
+</html>
