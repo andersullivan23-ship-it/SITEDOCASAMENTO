@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carolina & Anderson</title>
+<title>Carolina & Anderson 💍</title>
 <style>
-  /* RESET */
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', sans-serif;
     text-align: center;
     background: url('imagens/fundo.jpg') no-repeat center center fixed;
     background-size: cover;
     overflow: hidden;
     position: relative;
     min-height: 100vh;
+    color: #7b3f00;
   }
 
-  /* Fundo com brilhos */
+  /* Efeitos de brilho */
   .glitters {
     position: absolute;
     top: 0; left: 0;
@@ -29,30 +29,28 @@
 
   .glitter {
     position: absolute;
-    width: 6px; height: 6px;
+    width: 5px; height: 5px;
     border-radius: 50%;
     background: rgba(255,255,255,0.8);
-    pointer-events: none;
     animation: float 5s linear infinite;
   }
 
   @keyframes float {
-    0% { transform: translateY(0) scale(0.5); opacity: 0.6; }
+    0% { transform: translateY(0) scale(0.6); opacity: 0.6; }
     50% { transform: translateY(-40px) scale(1); opacity: 1; }
-    100% { transform: translateY(0) scale(0.5); opacity: 0.6; }
+    100% { transform: translateY(0) scale(0.6); opacity: 0.6; }
   }
 
-  /* Overlay */
   .overlay {
-    background: rgba(245, 230, 220, 0.88);
+    background: rgba(245, 230, 220, 0.85);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px;
-    position: relative;
     z-index: 2;
+    position: relative;
   }
 
   .logo {
@@ -63,14 +61,19 @@
 
   h1 {
     font-size: 28px;
-    margin-bottom: 10px;
     color: #7b3f00;
+    margin-bottom: 10px;
   }
 
-  h2 {
+  /* Contagem regressiva */
+  #countdown {
     font-size: 20px;
-    color: #a86a30;
-    margin-bottom: 30px;
+    margin: 15px 0 25px;
+    color: #6a3700;
+    background: rgba(255,255,255,0.7);
+    padding: 10px 25px;
+    border-radius: 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
   }
 
   /* Botões */
@@ -90,7 +93,6 @@
     transition: all 0.3s ease;
     cursor: pointer;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    z-index: 2;
   }
 
   .button:hover {
@@ -98,85 +100,36 @@
     box-shadow: 0 0 15px rgba(255, 215, 180, 0.8), 0 8px 20px rgba(0,0,0,0.3);
   }
 
-  .particle {
-    position: absolute;
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: #fff0db;
-    pointer-events: none;
-    animation: explode 0.6s forwards;
-  }
-
-  @keyframes explode {
-    0% { opacity: 1; transform: translate(0,0) scale(1); }
-    100% { opacity: 0; transform: translate(var(--x), var(--y)) scale(0.5); }
-  }
-
-  /* Data e hora */
-  .datahora {
-    font-size: 18px;
-    color: #7b3f00;
-    margin-top: 20px;
-    background: rgba(255,255,255,0.5);
-    padding: 10px 20px;
-    border-radius: 20px;
-    box-shadow: 0 0 15px rgba(255,255,255,0.4);
-    animation: fadein 2s ease;
-  }
-
-  @keyframes fadein {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
   /* Responsivo */
   @media(max-width: 600px){
     h1 { font-size: 22px; }
-    h2 { font-size: 18px; }
-    .logo { width: 65%; }
+    #countdown { font-size: 16px; padding: 8px 20px; }
     .button { font-size: 16px; padding: 12px; }
-    .datahora { font-size: 16px; padding: 8px 15px; }
   }
 </style>
 </head>
 <body>
 
-<!-- Fundo com brilhos -->
-<div class="glitters" id="glitters"></div>
-
-<!-- Música suave de fundo -->
+<!-- Música de fundo -->
 <audio autoplay loop>
-  <source src="imagens/musica.mp3" type="audio/mpeg">
+  <source src="https://cdn.pixabay.com/download/audio/2022/02/23/audio_25d6a8f51f.mp3?filename=so-hoje-instrumental.mp3" type="audio/mp3">
 </audio>
 
-<!-- Overlay -->
+<!-- Efeitos de brilho -->
+<div class="glitters" id="glitters"></div>
+
 <div class="overlay">
   <img src="imagens/casal.png" alt="Logo Carolina e Anderson" class="logo">
-  <h1>Bem-vindo ao nosso casamento 💍</h1>
-  <h2>Carolina & Anderson</h2>
+  <h1>Carolina & Anderson 💕</h1>
+
+  <div id="countdown"></div>
 
   <div class="button" onclick="explodeAndGo(event, 'lista.html')">🎁 Lista de Presentes</div>
-  <div class="button" onclick="explodeAndGo(event, 'https://wa.me/5511975863822?text=Ol%C3%A1%20Carolina%20e%20Anderson!%20Gostaria%20de%20confirmar%20minha%20presen%C3%A7a%20no%20casamento%20de%20voc%C3%AAs.%20Muito%20obrigada%20pelo%20convite')">✅ Confirmação de Presença</div>
-
-  <div class="datahora">📅 23 de Maio de 2026 — ⏰ 17h00</div>
+  <div class="button" onclick="explodeAndGo(event, 'https://wa.me/5511975863822?text=Olá%20Carolina%20e%20Anderson!%20Gostaria%20de%20confirmar%20minha%20presença%20no%20casamento%20de%20vocês.%20Muito%20obrigado(a)!')">✅ Confirmação de Presença</div>
 </div>
 
 <script>
-  // Efeito dos brilhos
-  const glittersContainer = document.getElementById('glitters');
-  const numGlitters = 40;
-  for(let i=0;i<numGlitters;i++){
-    const glitter = document.createElement('div');
-    glitter.classList.add('glitter');
-    glitter.style.left = Math.random()*100 + 'vw';
-    glitter.style.top = Math.random()*100 + 'vh';
-    glitter.style.animationDuration = 4 + Math.random()*4 + 's';
-    glitter.style.width = 3 + Math.random()*5 + 'px';
-    glitter.style.height = 3 + Math.random()*5 + 'px';
-    glittersContainer.appendChild(glitter);
-  }
-
-  // Animação dos botões
+  // Explosão dos botões
   function explodeAndGo(e, url) {
     const button = e.currentTarget;
     for (let i = 0; i < 20; i++) {
@@ -191,11 +144,43 @@
       button.appendChild(p);
       setTimeout(() => p.remove(), 600);
     }
-    button.style.transform = 'scale(0.9)';
-    button.style.opacity = '0';
-    button.style.transition = 'all 0.6s ease';
     setTimeout(() => { window.location.href = url; }, 600);
   }
+
+  // Brilhos
+  const glittersContainer = document.getElementById('glitters');
+  const numGlitters = 40;
+  for(let i=0;i<numGlitters;i++){
+    const glitter = document.createElement('div');
+    glitter.classList.add('glitter');
+    glitter.style.left = Math.random()*100 + 'vw';
+    glitter.style.top = Math.random()*100 + 'vh';
+    glitter.style.animationDuration = 4 + Math.random()*4 + 's';
+    glitter.style.width = 3 + Math.random()*5 + 'px';
+    glitter.style.height = 3 + Math.random()*5 + 'px';
+    glittersContainer.appendChild(glitter);
+  }
+
+  // Contagem regressiva
+  const countdownEl = document.getElementById("countdown");
+  const weddingDate = new Date("2026-05-23T00:00:00").getTime();
+
+  setInterval(() => {
+    const now = new Date().getTime();
+    const diff = weddingDate - now;
+
+    if (diff <= 0) {
+      countdownEl.innerHTML = "🎉 O grande dia chegou! 🎊";
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+    countdownEl.innerHTML = `${days} dias, ${hours}h ${mins}m ${secs}s para o nosso casamento 💞`;
+  }, 1000);
 </script>
 
 </body>
