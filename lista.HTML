@@ -80,24 +80,27 @@ h1{font-size:26px;color:#7b3f00;margin-bottom:25px;}
 </audio>
 
 <div class="overlay">
-<!-- Botão de voltar -->
-<div class="button" style="position:fixed; top:15px; left:15px; width:120px; background:linear-gradient(45deg,#7b3f00,#d9a066); z-index:10;" onclick="window.location.href='index.html'">⬅ Voltar</div>
 
 <h1>🎁 Nossas listas de presentes</h1>
 
-<div class="button" onclick="explodeAndGo(event,'https://www.querodecasamento.com.br/lista-de-casamento/carolina-pereira--anderson-henrique')">Lista de Presente 1</div>
-<div class="button" onclick="explodeAndGo(event,'http://site.lejour.com.br/lista-de-presentes/carolina-e-anderson')">Lista de Presente 2</div>
+<!-- Botão de voltar igual aos outros -->
+<div class="button" onclick="explodeAndGo(event,'index.html')">⬅ Voltar</div>
+
+<!-- Botões das listas com nome dos sites -->
+<div class="button" onclick="explodeAndGo(event,'https://www.querodecasamento.com.br/lista-de-casamento/carolina-pereira--anderson-henrique')">www.querodecasamento.com.br</div>
+<div class="button" onclick="explodeAndGo(event,'http://site.lejour.com.br/lista-de-presentes/carolina-e-anderson')">site.lejour.com.br</div>
 
 <div id="countdown"></div>
 </div>
 
 <script>
-// Música automática
-window.addEventListener('load', function(){
+// Música automática confiável
+function playMusic(){
   const audio=document.getElementById('bgmusic');
   audio.volume=0.5;
-  audio.play().catch(()=>{ document.body.addEventListener('click',()=>{audio.play();},{once:true}); });
-});
+  audio.play().catch(()=>{document.body.addEventListener('click',()=>{audio.play();},{once:true});});
+}
+window.addEventListener('load', playMusic);
 
 // Explosão dos botões
 function explodeAndGo(e,url){
