@@ -12,6 +12,7 @@ body{
     background:url('imagens/fundo.jpg') no-repeat center center fixed;
     background-size:cover;
     min-height:100vh;
+    color:#7b3f00;
     overflow:hidden;
 }
 .overlay{
@@ -33,7 +34,7 @@ body{
 h1{
     font-size:28px;
     margin-bottom:30px;
-    color:#d78c64; /* nome dos noivos terracota */
+    color:#c68657; /* Nome dos noivos terracota */
 }
 .button{
     position:relative;
@@ -55,10 +56,6 @@ h1{
 .button:hover{
     transform:scale(1.05);
     box-shadow:0 0 20px rgba(255,215,180,0.8),0 8px 25px rgba(0,0,0,0.3);
-}
-@media(max-width:600px){
-    h1{font-size:22px;}
-    .button{font-size:16px;padding:12px;}
 }
 /* Partículas da explosão */
 .particle{
@@ -90,29 +87,38 @@ h1{
 }
 .sound-icon:hover{background:rgba(255,255,255,0.8);}
 
-/* Contagem regressiva inferior com terracota mais escura */
+/* Contagem regressiva inferior */
 .countdown-container{
     position:fixed;
     bottom:20px;
     left:50%;
     transform:translateX(-50%);
-    background:rgba(215,140,100,0.4); /* terracota mais escuro e menos transparente */
-    padding:15px 25px;
+    background:rgba(215,140,100,0.4); /* terracota mais escuro */
+    padding:15px 30px;
     border-radius:15px;
     box-shadow:0 5px 15px rgba(0,0,0,0.3);
     text-align:center;
+    z-index:5;
 }
 .countdown-container h2{
-    font-size:14px; 
-    margin-bottom:8px;
-    color:#d78c64; /* texto da contagem terracota */
-    text-shadow:1px 1px 3px rgba(0,0,0,0.6);
+    font-size:14px;
+    margin-bottom:5px;
+    color:#5C3A21; /* marrom escuro elegante */
+    text-shadow:1px 1px 2px rgba(0,0,0,0.3);
 }
 #countdown{
     font-size:15px;
     font-weight:bold;
-    color:#d78c64; /* relógio terracota */
-    text-shadow:1px 1px 3px rgba(0,0,0,0.8);
+    color:#5C3A21; /* marrom escuro elegante */
+    text-shadow:1px 1px 2px rgba(0,0,0,0.3);
+}
+
+@media(max-width:600px){
+    h1{font-size:22px;}
+    .button{font-size:16px;padding:12px;}
+    .countdown-container{padding:12px 20px;}
+    .countdown-container h2{font-size:12px;}
+    #countdown{font-size:13px;}
 }
 </style>
 </head>
@@ -134,7 +140,7 @@ h1{
 
 <!-- Contagem regressiva inferior -->
 <div class="countdown-container">
-    <h2>Contagem regressiva até o grande dia 💖</h2>
+    <h2>⏳ Contagem regressiva até o grande dia</h2>
     <div id="countdown"></div>
 </div>
 
