@@ -29,12 +29,13 @@ body{
 .logo{
   max-width:260px;
   width:50%;
-  cursor:pointer;
   margin-bottom:15px;
-  transition:transform 0.3s ease;
 }
-.logo:hover{ transform:scale(1.05); }
-h1{font-size:28px;margin-bottom:30px;color:#7b3f00;}
+h1{
+  font-size:28px;
+  margin-bottom:30px;
+  color:#7b3f00;
+}
 .button{
   position:relative;
   display:block;
@@ -69,17 +70,20 @@ h1{font-size:28px;margin-bottom:30px;color:#7b3f00;}
   #countdown{font-size:16px;}
   .button{font-size:16px;padding:12px;}
 }
-
 /* Partículas da explosão */
 .particle {
-  position:absolute; width:6px; height:6px; border-radius:50%;
-  background:#fff0db; pointer-events:none; animation:explode 0.6s forwards;
+  position:absolute;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#fff0db;
+  pointer-events:none;
+  animation:explode 0.6s forwards;
 }
 @keyframes explode{
   0%{opacity:1; transform:translate(0,0) scale(1);}
   100%{opacity:0; transform:translate(var(--x), var(--y)) scale(0.5);}
 }
-
 /* Ícone de som */
 .sound-icon{
   position:fixed;
@@ -106,12 +110,12 @@ h1{font-size:28px;margin-bottom:30px;color:#7b3f00;}
 
 <div class="overlay">
   <img src="imagens/casal.png" alt="Logo Carolina e Anderson" class="logo">
-  <h1>Bem-vindo ao nosso casamento 💍</h1>
+  <h1>Carolina & Anderson 💍</h1>
 
-  <!-- Botões -->
-  <div class="button" onclick="explodeAndGo(event,'https://www.querodecasamento.com.br/lista-de-casamento/carolina-pereira--anderson-henrique')">Quero de Casamento</div>
-  <div class="button" onclick="explodeAndGo(event,'http://site.lejour.com.br/lista-de-presentes/carolina-e-anderson')">Lejour</div>
+  <!-- Botões principais -->
+  <div class="button" onclick="explodeAndGo(event,'lista.html')">🎁 Lista de Presentes</div>
   <div class="button" onclick="explodeAndGo(event,'https://wa.me/5511975863822?text=Ol%C3%A1%2C%20Carolina%20e%20Anderson!%20Ser%C3%A1%20um%20prazer%20participar%20desse%20momento%20t%C3%A3o%20especial.%20Confirmo%20minha%20presen%C3%A7a%20no%20casamento%20de%20voc%C3%AAs.%20Obrigado(a)%20pelo%20convite!')">✅ Confirmação de Presença</div>
+  <div class="button" onclick="explodeAndGo(event,'https://goo.gl/maps/XXXXXXX')">📍 Local do Casamento</div>
 
   <div id="countdown"></div>
 </div>
@@ -119,8 +123,8 @@ h1{font-size:28px;margin-bottom:30px;color:#7b3f00;}
 <div class="sound-icon" id="soundIcon" onclick="toggleSound()">🔊</div>
 
 <script>
-// Força autoplay e volume suave
-window.addEventListener('load', ()=>{
+// Música automática suave
+window.addEventListener('load',()=>{
   const audio=document.getElementById('bgmusic');
   audio.volume=0.15;
   const playPromise=audio.play();
@@ -128,11 +132,6 @@ window.addEventListener('load', ()=>{
     playPromise.catch(()=>{
       document.body.addEventListener('click',()=>{audio.play();},{once:true});
     });
-  }
-
-  // Impede pular o start.html
-  if(!sessionStorage.getItem("entrouPeloStart")){
-    window.location.href="start.html";
   }
 });
 
@@ -175,11 +174,8 @@ setInterval(()=>{
 function toggleSound(){
   const audio=document.getElementById('bgmusic');
   const icon=document.getElementById('soundIcon');
-  if(audio.paused){
-    audio.play(); icon.textContent="🔊";
-  } else {
-    audio.pause(); icon.textContent="🔈";
-  }
+  if(audio.paused){audio.play(); icon.textContent="🔊";}
+  else{audio.pause(); icon.textContent="🔈";}
 }
 </script>
 
