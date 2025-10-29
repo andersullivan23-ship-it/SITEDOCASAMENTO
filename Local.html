@@ -12,7 +12,7 @@ body, html{
     color:#7b3f00;
     overflow-x:hidden;
 }
-/* Fundo desfocado com a imagem */
+/* Fundo desfocado */
 .bg{
     position:fixed;
     top:0;
@@ -23,7 +23,7 @@ body, html{
     filter:blur(8px);
     z-index:1;
 }
-/* Overlay com transparência */
+/* Overlay transparente */
 .overlay{
     position:relative;
     z-index:2;
@@ -37,29 +37,37 @@ body, html{
     padding:20px;
     text-align:center;
 }
-/* Imagem principal do local */
-.local-img{
-    max-width:600px;
-    width:90%;
-    border-radius:15px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.3);
-    margin-bottom:20px;
-    transition:transform 0.3s ease;
-}
-.local-img:hover{
-    transform:scale(1.03);
-}
 /* Título */
 h1{font-size:28px;margin-bottom:20px;}
-/* Google Maps */
+/* Conteúdo lado a lado */
+.content{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:flex-start;
+    gap:20px;
+    width:100%;
+    max-width:1000px;
+}
+/* Imagem do local */
+.local-img{
+    max-width:400px;
+    width:100%;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+/* Mapa e endereço */
 .map-container{
-    width:90%;
-    max-width:800px;
-    height:400px;
+    flex:1;
+    min-width:300px;
     border-radius:15px;
     overflow:hidden;
     box-shadow:0 10px 25px rgba(0,0,0,0.3);
-    margin-top:20px;
+}
+.address{
+    margin:10px 0;
+    font-size:18px;
+    text-align:left;
 }
 /* Botão voltar */
 .button{
@@ -78,10 +86,11 @@ h1{font-size:28px;margin-bottom:20px;}
     transform:scale(1.05);
     box-shadow:0 0 20px rgba(255,215,180,0.8),0 8px 25px rgba(0,0,0,0.3);
 }
-@media(max-width:600px){
+@media(max-width:800px){
+    .content{flex-direction:column;align-items:center;}
+    .map-container{height:300px;}
     h1{font-size:22px;}
     .button{font-size:16px;padding:10px 20px;}
-    .map-container{height:300px;}
 }
 </style>
 </head>
@@ -91,15 +100,24 @@ h1{font-size:28px;margin-bottom:20px;}
 
 <div class="overlay">
     <h1>📍 Local do Casamento</h1>
-    <img src="https://acasaeventos.com.br/wp-content/uploads/2020/08/nossa-casa.jpg" 
-         alt="Nosso Local" class="local-img">
+    <div class="content">
+        <!-- Imagem do local -->
+        <img src="https://acasaeventos.com.br/wp-content/uploads/2020/08/nossa-casa.jpg" 
+             alt="Nosso Local" class="local-img">
 
-    <!-- Google Maps -->
-    <div class="map-container">
-        <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.946382018237!2d-46.68306508449117!3d-23.6221337680481!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5c8ee49fef4f%3A0x123456789abcdef!2sA%20Casa%20Eventos!5e0!3m2!1spt-BR!2sbr!4v1599999999999!5m2!1spt-BR!2sbr" 
-            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
+        <!-- Mapa e endereço -->
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed/v1/place?key=SEU_API_KEY&q=Rua+Emilio+Mandri+95,+Nova+Caieiras,+SP" 
+                width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy">
+            </iframe>
+            <div class="address">
+                <strong>Endereço:</strong> Rua Emilio Mandri, 95 - Nova Caieiras, SP
+            </div>
+            <a class="button" href="https://www.google.com/maps/dir/?api=1&destination=Rua+Emilio+Mandri+95,+Nova+Caieiras,+SP" target="_blank">
+                ➤ Ver Rota no Google Maps
+            </a>
+        </div>
     </div>
 
     <a href="index.html" class="button">⬅ Voltar</a>
