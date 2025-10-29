@@ -25,6 +25,11 @@ body{
   z-index:2;
   position:relative;
 }
+.logo{
+  max-width:260px;
+  width:50%;
+  margin-bottom:15px;
+}
 h1{font-size:26px;color:#7b3f00;margin-bottom:25px;line-height:1.4;}
 .button{
   position:relative;
@@ -76,10 +81,12 @@ h1{font-size:26px;color:#7b3f00;margin-bottom:25px;line-height:1.4;}
 
 <div class="overlay" id="content">
 
+<img src="imagens/casal.png" alt="Logo Carolina e Anderson" class="logo">
+
 <h1>🎁 Bem-vindo ao nosso casamento 💍</h1>
 
-<div class="button" onclick="navigateTo('lista.html')">Lista de Presentes</div>
-<div class="button" onclick="navigateTo('index.html')">Confirmação de Presença</div>
+<div class="button" onclick="navigateTo('lista')">Lista de Presentes</div>
+<div class="button" onclick="navigateTo('confirmacao')">Confirmação de Presença</div>
 
 <div id="countdown"></div>
 </div>
@@ -89,7 +96,7 @@ h1{font-size:26px;color:#7b3f00;margin-bottom:25px;line-height:1.4;}
 <script>
 // Música suave
 const audio = document.getElementById('bgmusic');
-audio.volume = 0.2; // volume baixo
+audio.volume = 0.2;
 audio.play().catch(()=>{document.body.addEventListener('click',()=>audio.play(),{once:true});});
 
 // Explosão dos botões
@@ -132,18 +139,24 @@ function navigateTo(page){
   const backBtn = document.getElementById('backButton');
   backBtn.style.display = 'block';
   const content = document.getElementById('content');
-  if(page==='lista.html'){
+  if(page==='lista'){
     content.innerHTML=`
+      <img src="imagens/casal.png" alt="Logo Carolina e Anderson" class="logo">
       <h1>🎁 Quer nos presentear?<br>Confira nossas sugestões abaixo.</h1>
       <div class="button" onclick="explodeAndGo(event,'https://www.querodecasamento.com.br/lista-de-casamento/carolina-pereira--anderson-henrique')">Quero de Casamento</div>
       <div class="button" onclick="explodeAndGo(event,'http://site.lejour.com.br/lista-de-presentes/carolina-e-anderson')">Lejour</div>
       <div id="countdown"></div>
     `;
-  }else{
-    location.reload(); // volta para página principal
+  } else if(page==='confirmacao'){
+    content.innerHTML=`
+      <img src="imagens/casal.png" alt="Logo Carolina e Anderson" class="logo">
+      <h1>✅ Confirmação de Presença</h1>
+      <div class="button" onclick="explodeAndGo(event,'https://wa.me/5511975863822?text=Ol%C3%A1%20Carolina%20e%20Anderson!%20Gostaria%20de%20confirmar%20minha%20presen%C3%A7a%20no%20casamento%20de%20voc%C3%AAs.%20Muito%20obrigada%20pelo%20convite')">Confirmar Presença</div>
+      <div id="countdown"></div>
+    `;
   }
 }
-function goBack(){ navigateTo('index.html'); }
+function goBack(){ navigateTo('index'); }
 </script>
 
 </body>
