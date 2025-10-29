@@ -70,6 +70,17 @@ h1{font-size:26px;color:#7b3f00;margin-bottom:25px;}
   0%{opacity:1; transform:translate(0,0) scale(1);}
   100%{opacity:0; transform:translate(var(--x), var(--y)) scale(0.5);}
 }
+
+/* Botão de voltar pequeno no canto inferior esquerdo */
+#backButton{
+  position:fixed;
+  bottom:15px;
+  left:15px;
+  width:120px;
+  font-size:16px;
+  padding:10px;
+  z-index:10;
+}
 </style>
 </head>
 <body>
@@ -83,9 +94,6 @@ h1{font-size:26px;color:#7b3f00;margin-bottom:25px;}
 
 <h1>🎁 Nossas listas de presentes</h1>
 
-<!-- Botão de voltar igual aos outros -->
-<div class="button" onclick="explodeAndGo(event,'index.html')">⬅ Voltar</div>
-
 <!-- Botões das listas com nomes bonitos -->
 <div class="button" onclick="explodeAndGo(event,'https://www.querodecasamento.com.br/lista-de-casamento/carolina-pereira--anderson-henrique')">Quero de Casamento</div>
 <div class="button" onclick="explodeAndGo(event,'http://site.lejour.com.br/lista-de-presentes/carolina-e-anderson')">Lejour</div>
@@ -93,8 +101,11 @@ h1{font-size:26px;color:#7b3f00;margin-bottom:25px;}
 <div id="countdown"></div>
 </div>
 
+<!-- Botão de voltar pequeno -->
+<div class="button" id="backButton" onclick="explodeAndGo(event,'index.html')">⬅ Voltar</div>
+
 <script>
-// Música confiável: autoplay local
+// Música confiável
 function playMusic(){
   const audio=document.getElementById('bgmusic');
   audio.volume=0.5;
