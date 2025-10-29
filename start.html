@@ -1,148 +1,111 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carolina & Anderson 💍</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-  font-family:'Poppins',sans-serif;
-  text-align:center;
-  background:url('imagens/fundo.jpg') no-repeat center center fixed;
-  background-size:cover;
-  min-height:100vh;
-  color:#7b3f00;
-  overflow:hidden;
-}
-.overlay{
-  background:rgba(245,230,220,0.85);
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  padding:20px;
-  position:relative;
-  z-index:2;
-}
-.logo{
-  max-width:280px;
-  width:60%;
-  margin-bottom:20px;
-}
-h1{
-  font-size:32px;
-  color:#7b3f00;
-  margin-bottom:30px;
-  font-family:'Poppins',sans-serif;
-  text-shadow:1px 1px 3px rgba(0,0,0,0.4);
-}
-.button{
-  position:relative;
-  display:block;
-  width:200px;
-  padding:15px;
-  margin:12px 0;
-  border-radius:30px;
-  background:linear-gradient(45deg,#c68657,#d9a066);
-  color:white;
-  font-size:18px;
-  text-decoration:none;
-  overflow:hidden;
-  transition:all 0.3s ease;
-  cursor:pointer;
-  box-shadow:0 5px 15px rgba(0,0,0,0.2);
-}
-.button:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 15px rgba(255,215,180,0.8),0 8px 20px rgba(0,0,0,0.3);
-}
-/* Partículas */
-.particle{
-  position:absolute;width:6px;height:6px;border-radius:50%;
-  background:#fff0db;pointer-events:none;animation:explode 0.6s forwards;
-}
-@keyframes explode{
-  0%{opacity:1; transform:translate(0,0) scale(1);}
-  100%{opacity:0; transform:translate(var(--x), var(--y)) scale(0.5);}
-}
-/* Ícone de som */
-.sound-icon{
-  position:fixed;
-  top:20px;
-  right:20px;
-  font-size:22px;
-  cursor:pointer;
-  color:#7b3f00;
-  background:rgba(255,255,255,0.6);
-  border-radius:50%;
-  padding:8px;
-  box-shadow:0 2px 8px rgba(0,0,0,0.2);
-  user-select:none;
-}
-.sound-icon:hover{background:rgba(255,255,255,0.8);}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carolina & Anderson</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: url('imagens/fundo.jpg') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: "Poppins", sans-serif;
+      overflow: hidden;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #fff;
+      text-shadow: 0 0 15px rgba(0,0,0,0.5);
+      animation: floatText 3s ease-in-out infinite alternate;
+    }
+
+    button {
+      margin-top: 50px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 30px;
+      padding: 15px 45px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #333;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      animation: fadeInUp 2s ease;
+    }
+
+    button:hover {
+      background-color: #c59a6d;
+      color: #fff;
+      transform: scale(1.1);
+      box-shadow: 0 0 20px #c59a6d;
+    }
+
+    /* Efeito quando clica em entrar */
+    .transition-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 70%);
+      animation: explode 1.2s forwards;
+      z-index: 999;
+    }
+
+    @keyframes explode {
+      0% { opacity: 0; transform: scale(0.1); }
+      50% { opacity: 1; transform: scale(1.5); }
+      100% { opacity: 0; transform: scale(4); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(1.1); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes floatText {
+      from { transform: translateY(0px); }
+      to { transform: translateY(-10px); }
+    }
+
+    audio { display: none; }
+  </style>
 </head>
 <body>
 
-<!-- Música -->
-<audio id="bgmusic" loop autoplay>
-  <source src="imagens/musica.mp3" type="audio/mp3">
-</audio>
+  <audio id="bg-music" autoplay loop>
+    <source src="musica/musica.mp3" type="audio/mpeg">
+  </audio>
 
-<div class="overlay">
-  <img src="imagens/casal.png" alt="Logo Carolina e Anderson" class="logo">
-  <h1>Carolina & Anderson 💍</h1>
-  <div class="button" onclick="enterSite(event)">Entrar</div>
-</div>
+  <h1>Carolina & Anderson</h1>
+  <button id="entrar">Entrar</button>
 
-<div class="sound-icon" id="soundIcon" onclick="toggleSound()">🔊</div>
+  <script>
+    const btn = document.getElementById('entrar');
+    btn.addEventListener('click', () => {
+      const transition = document.createElement('div');
+      transition.classList.add('transition-screen');
+      document.body.appendChild(transition);
 
-<script>
-// Música automática suave
-window.addEventListener('load',()=>{
-  const audio=document.getElementById('bgmusic');
-  audio.volume=0.15;
-  const playPromise=audio.play();
-  if(playPromise!==undefined){
-    playPromise.catch(()=>{
-      document.body.addEventListener('click',()=>{audio.play();},{once:true});
+      // Espera a animação terminar antes de ir pro site principal
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 1200);
     });
-  }
-});
-
-// Botão entrar com explosão
-function enterSite(e){
-  const button=e.currentTarget;
-  for(let i=0;i<25;i++){
-    const p=document.createElement('span');
-    p.classList.add('particle');
-    const x=(Math.random()-0.5)*300+'px';
-    const y=(Math.random()-0.5)*300+'px';
-    p.style.setProperty('--x',x);
-    p.style.setProperty('--y',y);
-    p.style.left=(button.offsetWidth/2)+'px';
-    p.style.top=(button.offsetHeight/2)+'px';
-    button.appendChild(p);
-    setTimeout(()=>p.remove(),600);
-  }
-  button.style.transform='scale(0.9)';
-  button.style.opacity='0.7';
-  setTimeout(()=>{
-    sessionStorage.setItem("entrouPeloStart","true");
-    window.location.href="index.html";
-  },600);
-}
-
-// Som on/off
-function toggleSound(){
-  const audio=document.getElementById('bgmusic');
-  const icon=document.getElementById('soundIcon');
-  if(audio.paused){audio.play(); icon.textContent="🔊";}
-  else{audio.pause(); icon.textContent="🔈";}
-}
-</script>
+  </script>
 
 </body>
 </html>
