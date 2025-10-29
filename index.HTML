@@ -75,8 +75,9 @@ h1{font-size:26px;color:#7b3f00;margin-bottom:25px;line-height:1.4;}
 <body>
 
 <!-- Música de fundo -->
-<audio id="bgmusic" loop autoplay>
+<audio id="bgmusic" loop>
   <source src="imagens/musica.mp3" type="audio/mp3">
+  Seu navegador não suporta áudio.
 </audio>
 
 <div class="overlay" id="content">
@@ -94,10 +95,17 @@ h1{font-size:26px;color:#7b3f00;margin-bottom:25px;line-height:1.4;}
 <div class="button" id="backButton" onclick="goBack()" style="display:none;">⬅ Voltar</div>
 
 <script>
-// Música suave
-const audio = document.getElementById('bgmusic');
-audio.volume = 0.2;
-audio.play().catch(()=>{document.body.addEventListener('click',()=>audio.play(),{once:true});});
+// Música suave em loop
+window.addEventListener('load', () => {
+  const audio = document.getElementById('bgmusic');
+  audio.volume = 0.2; // volume suave
+  const playPromise = audio.play();
+  if (playPromise !== undefined) {
+    playPromise.catch(() => {
+      document.body.addEventListener('click', () => { audio.play(); }, { once:true });
+    });
+  }
+});
 
 // Explosão dos botões
 function explodeAndGo(e,url){
