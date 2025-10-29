@@ -13,6 +13,7 @@ body{
   background-size:cover;
   min-height:100vh;
   color:#7b3f00;
+  overflow-x:hidden;
 }
 .overlay{
   background:rgba(245,230,220,0.85);
@@ -70,6 +71,18 @@ h1{font-size:26px;color:#7b3f00;margin-bottom:25px;line-height:1.4;}
 @keyframes explode{0%{opacity:1; transform:translate(0,0) scale(1);}100%{opacity:0; transform:translate(var(--x), var(--y)) scale(0.5);}}
 /* Botão de voltar pequeno */
 #backButton{position:fixed; bottom:15px; left:15px; width:120px; font-size:16px; padding:10px; z-index:10;}
+/* Ícone de som */
+#soundIcon{
+  position:fixed;
+  top:15px;
+  left:15px;
+  width:30px;
+  height:30px;
+  background:url('imagens/som.png') no-repeat center center;
+  background-size:contain;
+  cursor:pointer;
+  z-index:15;
+}
 </style>
 </head>
 <body>
@@ -79,6 +92,9 @@ h1{font-size:26px;color:#7b3f00;margin-bottom:25px;line-height:1.4;}
   <source src="imagens/musica.mp3" type="audio/mp3">
   Seu navegador não suporta áudio.
 </audio>
+
+<!-- Ícone de som -->
+<div id="soundIcon" title="Música" onclick="toggleMusic()"></div>
 
 <div class="overlay" id="content">
 
@@ -95,17 +111,17 @@ h1{font-size:26px;color:#7b3f00;margin-bottom:25px;line-height:1.4;}
 <div class="button" id="backButton" onclick="goBack()" style="display:none;">⬅ Voltar</div>
 
 <script>
-// Música suave em loop
+// Música suave
+const audio = document.getElementById('bgmusic');
+audio.volume = 0.2; // volume baixo
 window.addEventListener('load', () => {
-  const audio = document.getElementById('bgmusic');
-  audio.volume = 0.2; // volume suave
-  const playPromise = audio.play();
-  if (playPromise !== undefined) {
-    playPromise.catch(() => {
-      document.body.addEventListener('click', () => { audio.play(); }, { once:true });
-    });
-  }
+  audio.play().catch(()=>{}); // autoplay
 });
+
+// Função para alternar som
+function toggleMusic(){
+  if(audio.paused){ audio.play(); } else { audio.pause(); }
+}
 
 // Explosão dos botões
 function explodeAndGo(e,url){
@@ -118,7 +134,7 @@ function explodeAndGo(e,url){
     p.style.setProperty('--x',x);
     p.style.setProperty('--y',y);
     p.style.left=(e.offsetX-3)+'px';
-    p.style.top=(e.offsetY-3)+'px';
+    p.style.top=(e.offsetY-3)+'px;
     button.appendChild(p);
     setTimeout(()=>p.remove(),600);
   }
@@ -164,7 +180,16 @@ function navigateTo(page){
     `;
   }
 }
-function goBack(){ navigateTo('index'); }
+function goBack(){ 
+  document.getElementById('backButton').style.display='none';
+  document.getElementById('content').innerHTML=`
+    <img src="imagens/casal.png" alt="Logo Carolina e Anderson" class="logo">
+    <h1>🎁 Bem-vindo ao nosso casamento 💍</h1>
+    <div class="button" onclick="navigateTo('lista')">Lista de Presentes</div>
+    <div class="button" onclick="navigateTo('confirmacao')">Confirmação de Presença</div>
+    <div id="countdown"></div>
+  `;
+}
 </script>
 
 </body>
