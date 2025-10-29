@@ -18,7 +18,7 @@
     color: #7b3f00;
   }
 
-  /* Efeitos de brilho */
+  /* Fundo com brilho */
   .glitters {
     position: absolute;
     top: 0; left: 0;
@@ -55,28 +55,16 @@
 
   .logo {
     max-width: 260px;
-    width: 50%;
+    width: 60%;
     margin-bottom: 15px;
   }
 
   h1 {
     font-size: 28px;
     color: #7b3f00;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
   }
 
-  /* Contagem regressiva */
-  #countdown {
-    font-size: 20px;
-    margin: 15px 0 25px;
-    color: #6a3700;
-    background: rgba(255,255,255,0.7);
-    padding: 10px 25px;
-    border-radius: 20px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-  }
-
-  /* Botões */
   .button {
     position: relative;
     display: block;
@@ -100,7 +88,16 @@
     box-shadow: 0 0 15px rgba(255, 215, 180, 0.8), 0 8px 20px rgba(0,0,0,0.3);
   }
 
-  /* Responsivo */
+  #countdown {
+    font-size: 18px;
+    margin-top: 25px;
+    color: #6a3700;
+    background: rgba(255,255,255,0.7);
+    padding: 10px 25px;
+    border-radius: 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  }
+
   @media(max-width: 600px){
     h1 { font-size: 22px; }
     #countdown { font-size: 16px; padding: 8px 20px; }
@@ -111,28 +108,34 @@
 <body>
 
 <!-- Música de fundo -->
-<audio autoplay loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/02/23/audio_25d6a8f51f.mp3?filename=so-hoje-instrumental.mp3" type="audio/mp3">
+<audio id="bgmusic" autoplay loop>
+  <source src="https://cdn.pixabay.com/download/audio/2023/05/17/audio_7a7f3eab17.mp3?filename=romantic-piano-instrumental-14304.mp3" type="audio/mp3">
 </audio>
 
-<!-- Efeitos de brilho -->
+<!-- Fundo com brilhos -->
 <div class="glitters" id="glitters"></div>
 
 <div class="overlay">
   <img src="imagens/casal.png" alt="Logo Carolina e Anderson" class="logo">
   <h1>Carolina & Anderson 💕</h1>
 
-  <div id="countdown"></div>
-
   <div class="button" onclick="explodeAndGo(event, 'lista.html')">🎁 Lista de Presentes</div>
   <div class="button" onclick="explodeAndGo(event, 'https://wa.me/5511975863822?text=Olá%20Carolina%20e%20Anderson!%20Gostaria%20de%20confirmar%20minha%20presença%20no%20casamento%20de%20vocês.%20Muito%20obrigado(a)!')">✅ Confirmação de Presença</div>
+
+  <div id="countdown"></div>
 </div>
 
 <script>
+  // Música automática (reprodução garantida em celular)
+  document.addEventListener('click', function() {
+    const audio = document.getElementById('bgmusic');
+    if (audio.paused) audio.play();
+  });
+
   // Explosão dos botões
   function explodeAndGo(e, url) {
     const button = e.currentTarget;
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 15; i++) {
       const p = document.createElement('span');
       p.classList.add('particle');
       const x = (Math.random() - 0.5) * 200 + 'px';
@@ -147,17 +150,14 @@
     setTimeout(() => { window.location.href = url; }, 600);
   }
 
-  // Brilhos
+  // Brilhos no fundo
   const glittersContainer = document.getElementById('glitters');
-  const numGlitters = 40;
-  for(let i=0;i<numGlitters;i++){
+  for(let i=0;i<40;i++){
     const glitter = document.createElement('div');
     glitter.classList.add('glitter');
     glitter.style.left = Math.random()*100 + 'vw';
     glitter.style.top = Math.random()*100 + 'vh';
     glitter.style.animationDuration = 4 + Math.random()*4 + 's';
-    glitter.style.width = 3 + Math.random()*5 + 'px';
-    glitter.style.height = 3 + Math.random()*5 + 'px';
     glittersContainer.appendChild(glitter);
   }
 
@@ -179,7 +179,7 @@
     const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     const secs = Math.floor((diff % (1000 * 60)) / 1000);
 
-    countdownEl.innerHTML = `${days} dias, ${hours}h ${mins}m ${secs}s para o nosso casamento 💞`;
+    countdownEl.innerHTML = `${days} dias, ${hours}h ${mins}m ${secs}s 💞`;
   }, 1000);
 </script>
 
