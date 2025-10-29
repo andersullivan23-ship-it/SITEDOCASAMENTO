@@ -7,120 +7,118 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body, html{
-    height:100%;
     font-family:'Poppins',sans-serif;
     color:#7b3f00;
-    overflow-x:hidden;
-}
-/* Fundo desfocado */
-.bg{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:url('https://acasaeventos.com.br/wp-content/uploads/2020/08/nossa-casa.jpg') center/cover no-repeat;
-    filter:blur(8px);
-    z-index:1;
-}
-/* Overlay transparente */
-.overlay{
-    position:relative;
-    z-index:2;
-    width:100%;
+    background-color:#f5e6dc;
     min-height:100vh;
+}
+/* Container principal */
+.overlay{
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    background:rgba(245,230,220,0.85);
-    padding:20px;
-    text-align:center;
+    padding:40px 20px;
 }
 /* Título */
-h1{font-size:28px;margin-bottom:20px;}
-/* Conteúdo lado a lado */
+h1{
+    font-size:32px;
+    margin-bottom:40px;
+    color:#7b3f00;
+    text-align:center;
+    text-shadow:1px 1px 3px rgba(0,0,0,0.2);
+}
+/* Conteúdo foto + texto */
 .content{
     display:flex;
     flex-wrap:wrap;
-    justify-content:center;
-    align-items:flex-start;
-    gap:20px;
-    width:100%;
+    align-items:center;
+    gap:40px;
     max-width:1000px;
-}
-/* Imagem do local */
-.local-img{
-    max-width:400px;
     width:100%;
-    border-radius:15px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.3);
 }
-/* Mapa e endereço */
-.map-container{
+/* Foto do local */
+.local-img{
     flex:1;
     min-width:300px;
+    max-width:450px;
     border-radius:15px;
-    overflow:hidden;
-    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    transition:transform 0.3s ease;
+}
+.local-img:hover{
+    transform:scale(1.03);
+}
+/* Texto ao lado */
+.text{
+    flex:1;
+    min-width:280px;
+    color:#7b3f00;
+}
+.text p{
+    font-size:18px;
+    line-height:1.6;
+    margin-bottom:20px;
 }
 .address{
-    margin:10px 0;
+    font-weight:bold;
     font-size:18px;
-    text-align:left;
+    margin-bottom:20px;
 }
-/* Botão voltar */
-.button{
+.map-button{
     display:inline-block;
     padding:12px 25px;
-    margin-top:20px;
     border-radius:30px;
     background:linear-gradient(45deg,#c68657,#d9a066);
     color:white;
     font-size:18px;
     text-decoration:none;
-    transition:all 0.3s ease;
     box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    transition:all 0.3s ease;
 }
-.button:hover{
+.map-button:hover{
     transform:scale(1.05);
     box-shadow:0 0 20px rgba(255,215,180,0.8),0 8px 25px rgba(0,0,0,0.3);
 }
-@media(max-width:800px){
+/* Botão voltar */
+.back-button{
+    display:inline-block;
+    padding:12px 25px;
+    margin-top:40px;
+    border-radius:30px;
+    background:linear-gradient(45deg,#c68657,#d9a066);
+    color:white;
+    font-size:18px;
+    text-decoration:none;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    transition:all 0.3s ease;
+}
+.back-button:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 20px rgba(255,215,180,0.8),0 8px 25px rgba(0,0,0,0.3);
+}
+@media(max-width:900px){
     .content{flex-direction:column;align-items:center;}
-    .map-container{height:300px;}
-    h1{font-size:22px;}
-    .button{font-size:16px;padding:10px 20px;}
+    .local-img{max-width:90%;}
+    .text{text-align:center;}
 }
 </style>
 </head>
 <body>
 
-<div class="bg"></div>
-
 <div class="overlay">
     <h1>📍 Local do Casamento</h1>
     <div class="content">
-        <!-- Imagem do local -->
-        <img src="https://acasaeventos.com.br/wp-content/uploads/2020/08/nossa-casa.jpg" 
-             alt="Nosso Local" class="local-img">
+        <img src="https://acasaeventos.com.br/wp-content/uploads/2020/08/nossa-casa.jpg" alt="Nosso Local" class="local-img">
 
-        <!-- Mapa e endereço -->
-        <div class="map-container">
-            <iframe 
-                src="https://www.google.com/maps/embed/v1/place?key=SEU_API_KEY&q=Rua+Emilio+Mandri+95,+Nova+Caieiras,+SP" 
-                width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy">
-            </iframe>
-            <div class="address">
-                <strong>Endereço:</strong> Rua Emilio Mandri, 95 - Nova Caieiras, SP
-            </div>
-            <a class="button" href="https://www.google.com/maps/dir/?api=1&destination=Rua+Emilio+Mandri+95,+Nova+Caieiras,+SP" target="_blank">
-                ➤ Ver Rota no Google Maps
-            </a>
+        <div class="text">
+            <p>Estamos felizes em receber você neste espaço encantador para celebrar este momento único! Um ambiente aconchegante, elegante e perfeito para criar memórias inesquecíveis.</p>
+            <div class="address">Endereço: Rua Emilio Mandri, 95 - Nova Caieiras, SP</div>
+            <a class="map-button" href="https://www.google.com/maps/dir/?api=1&destination=Rua+Emilio+Mandri+95,+Nova+Caieiras,+SP" target="_blank">➤ Ver Rota no Google Maps</a>
         </div>
     </div>
 
-    <a href="index.html" class="button">⬅ Voltar</a>
+    <a href="index.html" class="back-button">⬅ Voltar</a>
 </div>
 
 </body>
