@@ -1,153 +1,130 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carolina & Anderson</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-  font-family:'Poppins',sans-serif;
-  text-align:center;
-  background:url('imagens/fundo.jpg') no-repeat center center fixed;
-  background-size:cover;
-  min-height:100vh;
-  color:#7b3f00;
-  overflow-x:hidden;
-}
-.overlay{
-  background:rgba(245,230,220,0.85);
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  padding:20px;
-  z-index:2;
-  position:relative;
-}
-.logo{
-  max-width:260px;
-  width:50%;
-  margin-bottom:15px;
-}
-h1{font-size:26px;color:#7b3f00;margin-bottom:25px;line-height:1.4;}
-.button{
-  position:relative;
-  display:block;
-  width:80%;
-  max-width:300px;
-  padding:15px;
-  margin:12px 0;
-  border-radius:30px;
-  background:linear-gradient(45deg,#c68657,#d9a066);
-  color:white;
-  font-size:18px;
-  text-decoration:none;
-  overflow:hidden;
-  transition:all 0.3s ease;
-  cursor:pointer;
-  box-shadow:0 5px 15px rgba(0,0,0,0.2);
-}
-.button:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 15px rgba(255,215,180,0.8),0 8px 20px rgba(0,0,0,0.3);
-}
-#countdown{
-  font-size:18px;
-  margin-top:30px;
-  color:#7b3f00;
-  text-shadow:1px 1px 3px rgba(0,0,0,0.5);
-}
-@media(max-width:600px){
-  h1{font-size:22px;}
-  #countdown{font-size:16px;}
-  .button{font-size:16px;padding:12px;}
-}
-/* Partículas da explosão */
-.particle { position:absolute; width:6px; height:6px; border-radius:50%; background:#fff0db; pointer-events:none; animation:explode 0.6s forwards;}
-@keyframes explode{0%{opacity:1; transform:translate(0,0) scale(1);}100%{opacity:0; transform:translate(var(--x), var(--y)) scale(0.5);}}
-/* Ícone de som */
-#soundIcon{
-  position:fixed;
-  top:15px;
-  left:15px;
-  width:30px;
-  height:30px;
-  background:url('imagens/som.png') no-repeat center center;
-  background-size:contain;
-  cursor:pointer;
-  z-index:15;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carolina & Anderson</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      text-align: center;
+      color: #fff;
+      background: url('fundo.jpg') center/cover no-repeat;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 5px;
+    }
+
+    p {
+      font-size: 1rem;
+      margin-top: 0;
+    }
+
+    .btn {
+      display: inline-block;
+      margin: 20px auto;
+      padding: 15px 40px;
+      background: rgba(255,255,255,0.9);
+      color: #333;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+      background: #ffcad4;
+    }
+
+    .relogio {
+      font-size: 1.5rem;
+      margin-top: 20px;
+    }
+
+    /* Ícone de som */
+    #soundIcon {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 50%;
+      padding: 8px;
+      cursor: pointer;
+      z-index: 10;
+      transition: transform 0.3s;
+    }
+    #soundIcon:hover { transform: scale(1.1); }
+  </style>
+
+  <script>
+    // Redirecionar se não veio do start
+    if (!sessionStorage.getItem("entrouPeloStart")) {
+      window.location.href = "start.html";
+    }
+
+    window.addEventListener("beforeunload", () => {
+      sessionStorage.removeItem("entrouPeloStart");
+    });
+  </script>
 </head>
 <body>
+  <h1>Carolina ❤️ Anderson</h1>
+  <p>23 de Maio de 2026</p>
 
-<!-- Música de fundo -->
-<audio id="bgmusic" loop>
-  <source src="imagens/musica.mp3" type="audio/mp3">
-  Seu navegador não suporta áudio.
-</audio>
+  <button class="btn" onclick="irParaLista()">Lista de Presentes</button>
 
-<!-- Ícone de som -->
-<div id="soundIcon" title="Música" onclick="toggleMusic()"></div>
+  <div class="relogio" id="contador"></div>
 
-<div class="overlay">
+  <!-- Ícone de som -->
+  <div id="soundIcon" onclick="toggleSom()">🔊</div>
 
-<img src="imagens/casal.png" alt="Logo Carolina e Anderson" class="logo">
+  <audio id="bgMusic" src="musica.mp3" loop></audio>
 
-<h1>🎁 Bem-vindo ao nosso casamento 💍</h1>
+  <script>
+    const music = document.getElementById("bgMusic");
+    const icon = document.getElementById("soundIcon");
 
-<div class="button" onclick="explodeAndGo(event,'lista.html')">Lista de Presentes</div>
-<div class="button" onclick="explodeAndGo(event,'https://wa.me/5511975863822?text=Ol%C3%A1%20Carolina%20e%20Anderson!%20Gostaria%20de%20confirmar%20minha%20presença%20no%20casamento%20de%20vocês.%20Muito%20obrigada%20pelo%20convite')">Confirmação de Presença</div>
+    // Tocar música automaticamente se já estiver tocando
+    window.addEventListener("DOMContentLoaded", () => {
+      try {
+        music.volume = 0.3;
+        music.play().catch(() => {});
+      } catch (e) {}
+    });
 
-<div id="countdown"></div>
-</div>
+    function toggleSom() {
+      if (music.paused) {
+        music.play();
+        icon.textContent = "🔊";
+      } else {
+        music.pause();
+        icon.textContent = "🔈";
+      }
+    }
 
-<script>
-// Música suave
-const audio = document.getElementById('bgmusic');
-audio.volume = 0.2; // volume baixo
-window.addEventListener('load', () => {
-  audio.play().catch(()=>{});
-});
-function toggleMusic(){ audio.paused ? audio.play() : audio.pause(); }
+    function irParaLista() {
+      const btn = document.querySelector(".btn");
+      btn.style.transform = "scale(1.3)";
+      setTimeout(() => {
+        window.location.href = "lista.html";
+      }, 400);
+    }
 
-// Explosão dos botões
-function explodeAndGo(e,url){
-  const button=e.currentTarget;
-  for(let i=0;i<20;i++){
-    const p=document.createElement('span');
-    p.classList.add('particle');
-    const x=(Math.random()-0.5)*300+'px';
-    const y=(Math.random()-0.5)*300+'px';
-    p.style.setProperty('--x',x);
-    p.style.setProperty('--y',y);
-    p.style.left=(e.offsetX-3)+'px';
-    p.style.top=(e.offsetY-3)+'px';
-    button.appendChild(p);
-    setTimeout(()=>p.remove(),600);
-  }
-  button.style.transform='scale(0.9)';
-  button.style.opacity='0';
-  button.style.transition='all 0.6s ease';
-  setTimeout(()=>{window.location.href=url;},700);
-}
+    // Contagem regressiva
+    const evento = new Date("May 23, 2026 19:00:00").getTime();
+    setInterval(() => {
+      const agora = new Date().getTime();
+      const falta = evento - agora;
 
-// Contagem regressiva
-const countdownEl=document.getElementById("countdown");
-const weddingDate=new Date("2026-05-23T00:00:00").getTime();
-setInterval(()=>{
-  const now=new Date().getTime();
-  const diff=weddingDate-now;
-  if(diff<=0){ countdownEl.innerHTML="🎉 O grande dia chegou! 🎊"; return;}
-  const d=Math.floor(diff/(1000*60*60*24));
-  const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-  const m=Math.floor((diff%(1000*60*60))/(1000*60));
-  const s=Math.floor((diff%(1000*60))/1000);
-  countdownEl.innerHTML=`${d} dias, ${h}h ${m}m ${s}s`;
-},1000);
-</script>
-
-</body>
-</html>
+      const dias = Math.floor(falta / (1000 * 60 * 60 * 24));
+      co
