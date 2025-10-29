@@ -29,21 +29,44 @@ body{
 .logo{
   max-width:280px;
   width:60%;
-  cursor:pointer;
+  margin-bottom:20px;
+}
+h1{
+  font-size:32px;
+  color:#7b3f00;
   margin-bottom:30px;
-  transition:transform 0.3s ease;
+  font-family:'Poppins',sans-serif;
+  text-shadow:1px 1px 3px rgba(0,0,0,0.4);
 }
-.logo:hover{ transform:scale(1.05); }
-
-.fade{
-  position:fixed;
-  top:0;left:0;width:100%;height:100%;
-  background:rgba(245,230,220,0);
-  transition:background 1s ease;
-  z-index:10;
+.button{
+  position:relative;
+  display:block;
+  width:200px;
+  padding:15px;
+  margin:12px 0;
+  border-radius:30px;
+  background:linear-gradient(45deg,#c68657,#d9a066);
+  color:white;
+  font-size:18px;
+  text-decoration:none;
+  overflow:hidden;
+  transition:all 0.3s ease;
+  cursor:pointer;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
 }
-.fade.active{ background:rgba(245,230,220,1); }
-
+.button:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 15px rgba(255,215,180,0.8),0 8px 20px rgba(0,0,0,0.3);
+}
+/* Partículas */
+.particle{
+  position:absolute;width:6px;height:6px;border-radius:50%;
+  background:#fff0db;pointer-events:none;animation:explode 0.6s forwards;
+}
+@keyframes explode{
+  0%{opacity:1; transform:translate(0,0) scale(1);}
+  100%{opacity:0; transform:translate(var(--x), var(--y)) scale(0.5);}
+}
 /* Ícone de som */
 .sound-icon{
   position:fixed;
@@ -59,21 +82,6 @@ body{
   user-select:none;
 }
 .sound-icon:hover{background:rgba(255,255,255,0.8);}
-
-/* Efeito de partículas */
-.particle {
-  position:absolute;
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:#fff0db;
-  pointer-events:none;
-  animation:explode 0.6s forwards;
-}
-@keyframes explode {
-  0%{opacity:1;transform:translate(0,0) scale(1);}
-  100%{opacity:0;transform:translate(var(--x), var(--y)) scale(0.5);}
-}
 </style>
 </head>
 <body>
@@ -84,14 +92,15 @@ body{
 </audio>
 
 <div class="overlay">
-  <img src="imagens/casal.png" alt="Logo Carolina e Anderson" class="logo" onclick="explodeAndGo(event)">
+  <img src="imagens/casal.png" alt="Logo Carolina e Anderson" class="logo">
+  <h1>Carolina & Anderson 💍</h1>
+  <div class="button" onclick="enterSite(event)">Entrar</div>
 </div>
 
-<div class="fade" id="fade"></div>
 <div class="sound-icon" id="soundIcon" onclick="toggleSound()">🔊</div>
 
 <script>
-// Música automática e suave
+// Música automática suave
 window.addEventListener('load',()=>{
   const audio=document.getElementById('bgmusic');
   audio.volume=0.15;
@@ -103,9 +112,9 @@ window.addEventListener('load',()=>{
   }
 });
 
-// Efeito explosão
-function explodeAndGo(e){
-  const logo=e.currentTarget;
+// Botão entrar com explosão
+function enterSite(e){
+  const button=e.currentTarget;
   for(let i=0;i<25;i++){
     const p=document.createElement('span');
     p.classList.add('particle');
@@ -113,30 +122,25 @@ function explodeAndGo(e){
     const y=(Math.random()-0.5)*300+'px';
     p.style.setProperty('--x',x);
     p.style.setProperty('--y',y);
-    p.style.left=(logo.offsetWidth/2)+'px';
-    p.style.top=(logo.offsetHeight/2)+'px';
-    logo.appendChild(p);
+    p.style.left=(button.offsetWidth/2)+'px';
+    p.style.top=(button.offsetHeight/2)+'px';
+    button.appendChild(p);
     setTimeout(()=>p.remove(),600);
   }
-  logo.style.transform='scale(0.9)';
-  logo.style.opacity='0.7';
+  button.style.transform='scale(0.9)';
+  button.style.opacity='0.7';
   setTimeout(()=>{
-    const fade=document.getElementById('fade');
-    fade.classList.add('active');
     sessionStorage.setItem("entrouPeloStart","true");
-    setTimeout(()=>{window.location.href="index.html";},1000);
-  },400);
+    window.location.href="index.html";
+  },600);
 }
 
 // Som on/off
 function toggleSound(){
   const audio=document.getElementById('bgmusic');
   const icon=document.getElementById('soundIcon');
-  if(audio.paused){
-    audio.play(); icon.textContent="🔊";
-  } else {
-    audio.pause(); icon.textContent="🔈";
-  }
+  if(audio.paused){audio.play(); icon.textContent="🔊";}
+  else{audio.pause(); icon.textContent="🔈";}
 }
 </script>
 
