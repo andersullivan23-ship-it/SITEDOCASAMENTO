@@ -57,8 +57,6 @@ h1{font-size:26px;color:#7b3f00;margin-bottom:25px;line-height:1.4;}
   font-size:18px;
   margin-top:30px;
   color:#7b3f00;
-  background:transparent;
-  box-shadow:none;
   text-shadow:1px 1px 3px rgba(0,0,0,0.5);
 }
 @media(max-width:600px){
@@ -69,8 +67,6 @@ h1{font-size:26px;color:#7b3f00;margin-bottom:25px;line-height:1.4;}
 /* Partículas da explosão */
 .particle { position:absolute; width:6px; height:6px; border-radius:50%; background:#fff0db; pointer-events:none; animation:explode 0.6s forwards;}
 @keyframes explode{0%{opacity:1; transform:translate(0,0) scale(1);}100%{opacity:0; transform:translate(var(--x), var(--y)) scale(0.5);}}
-/* Botão de voltar pequeno */
-#backButton{position:fixed; bottom:15px; left:15px; width:120px; font-size:16px; padding:10px; z-index:10;}
 /* Ícone de som */
 #soundIcon{
   position:fixed;
@@ -96,32 +92,26 @@ h1{font-size:26px;color:#7b3f00;margin-bottom:25px;line-height:1.4;}
 <!-- Ícone de som -->
 <div id="soundIcon" title="Música" onclick="toggleMusic()"></div>
 
-<div class="overlay" id="content">
+<div class="overlay">
 
 <img src="imagens/casal.png" alt="Logo Carolina e Anderson" class="logo">
 
 <h1>🎁 Bem-vindo ao nosso casamento 💍</h1>
 
-<div class="button" onclick="navigateTo('lista')">Lista de Presentes</div>
-<div class="button" onclick="navigateTo('confirmacao')">Confirmação de Presença</div>
+<div class="button" onclick="explodeAndGo(event,'lista.html')">Lista de Presentes</div>
+<div class="button" onclick="explodeAndGo(event,'https://wa.me/5511975863822?text=Ol%C3%A1%20Carolina%20e%20Anderson!%20Gostaria%20de%20confirmar%20minha%20presença%20no%20casamento%20de%20vocês.%20Muito%20obrigada%20pelo%20convite')">Confirmação de Presença</div>
 
 <div id="countdown"></div>
 </div>
-
-<div class="button" id="backButton" onclick="goBack()" style="display:none;">⬅ Voltar</div>
 
 <script>
 // Música suave
 const audio = document.getElementById('bgmusic');
 audio.volume = 0.2; // volume baixo
 window.addEventListener('load', () => {
-  audio.play().catch(()=>{}); // autoplay
+  audio.play().catch(()=>{});
 });
-
-// Função para alternar som
-function toggleMusic(){
-  if(audio.paused){ audio.play(); } else { audio.pause(); }
-}
+function toggleMusic(){ audio.paused ? audio.play() : audio.pause(); }
 
 // Explosão dos botões
 function explodeAndGo(e,url){
@@ -134,14 +124,14 @@ function explodeAndGo(e,url){
     p.style.setProperty('--x',x);
     p.style.setProperty('--y',y);
     p.style.left=(e.offsetX-3)+'px';
-    p.style.top=(e.offsetY-3)+'px;
+    p.style.top=(e.offsetY-3)+'px';
     button.appendChild(p);
     setTimeout(()=>p.remove(),600);
   }
   button.style.transform='scale(0.9)';
   button.style.opacity='0';
   button.style.transition='all 0.6s ease';
-  setTimeout(()=>{loadPage(url);},800);
+  setTimeout(()=>{window.location.href=url;},700);
 }
 
 // Contagem regressiva
@@ -157,39 +147,6 @@ setInterval(()=>{
   const s=Math.floor((diff%(1000*60))/1000);
   countdownEl.innerHTML=`${d} dias, ${h}h ${m}m ${s}s`;
 },1000);
-
-// Navegação SPA
-function navigateTo(page){
-  const backBtn = document.getElementById('backButton');
-  backBtn.style.display = 'block';
-  const content = document.getElementById('content');
-  if(page==='lista'){
-    content.innerHTML=`
-      <img src="imagens/casal.png" alt="Logo Carolina e Anderson" class="logo">
-      <h1>🎁 Quer nos presentear?<br>Confira nossas sugestões abaixo.</h1>
-      <div class="button" onclick="explodeAndGo(event,'https://www.querodecasamento.com.br/lista-de-casamento/carolina-pereira--anderson-henrique')">Quero de Casamento</div>
-      <div class="button" onclick="explodeAndGo(event,'http://site.lejour.com.br/lista-de-presentes/carolina-e-anderson')">Lejour</div>
-      <div id="countdown"></div>
-    `;
-  } else if(page==='confirmacao'){
-    content.innerHTML=`
-      <img src="imagens/casal.png" alt="Logo Carolina e Anderson" class="logo">
-      <h1>✅ Confirmação de Presença</h1>
-      <div class="button" onclick="explodeAndGo(event,'https://wa.me/5511975863822?text=Ol%C3%A1%20Carolina%20e%20Anderson!%20Gostaria%20de%20confirmar%20minha%20presen%C3%A7a%20no%20casamento%20de%20voc%C3%AAs.%20Muito%20obrigada%20pelo%20convite')">Confirmar Presença</div>
-      <div id="countdown"></div>
-    `;
-  }
-}
-function goBack(){ 
-  document.getElementById('backButton').style.display='none';
-  document.getElementById('content').innerHTML=`
-    <img src="imagens/casal.png" alt="Logo Carolina e Anderson" class="logo">
-    <h1>🎁 Bem-vindo ao nosso casamento 💍</h1>
-    <div class="button" onclick="navigateTo('lista')">Lista de Presentes</div>
-    <div class="button" onclick="navigateTo('confirmacao')">Confirmação de Presença</div>
-    <div id="countdown"></div>
-  `;
-}
 </script>
 
 </body>
