@@ -75,8 +75,8 @@ h1{font-size:26px;color:#7b3f00;margin-bottom:25px;}
 <body>
 
 <!-- Música de fundo -->
-<audio id="bgmusic" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2023/05/17/audio_7a7f3eab17.mp3?filename=romantic-piano-instrumental-14304.mp3" type="audio/mp3">
+<audio id="bgmusic" loop autoplay>
+  <source src="imagens/musica.mp3" type="audio/mp3">
 </audio>
 
 <div class="overlay">
@@ -86,15 +86,15 @@ h1{font-size:26px;color:#7b3f00;margin-bottom:25px;}
 <!-- Botão de voltar igual aos outros -->
 <div class="button" onclick="explodeAndGo(event,'index.html')">⬅ Voltar</div>
 
-<!-- Botões das listas com nome dos sites -->
-<div class="button" onclick="explodeAndGo(event,'https://www.querodecasamento.com.br/lista-de-casamento/carolina-pereira--anderson-henrique')">www.querodecasamento.com.br</div>
-<div class="button" onclick="explodeAndGo(event,'http://site.lejour.com.br/lista-de-presentes/carolina-e-anderson')">site.lejour.com.br</div>
+<!-- Botões das listas com nomes bonitos -->
+<div class="button" onclick="explodeAndGo(event,'https://www.querodecasamento.com.br/lista-de-casamento/carolina-pereira--anderson-henrique')">Quero de Casamento</div>
+<div class="button" onclick="explodeAndGo(event,'http://site.lejour.com.br/lista-de-presentes/carolina-e-anderson')">Lejour</div>
 
 <div id="countdown"></div>
 </div>
 
 <script>
-// Música automática confiável
+// Música confiável: autoplay local
 function playMusic(){
   const audio=document.getElementById('bgmusic');
   audio.volume=0.5;
