@@ -14,13 +14,13 @@ body {
   overflow: hidden;
   position: relative;
   min-height: 100vh;
-  color: #fff1dc;
+  color: #7b3f00;
 }
 
 /* Brilhos */
-.glitters { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
-.glitter { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.8); animation: float 5s linear infinite; }
-@keyframes float { 0% { transform: translateY(0) scale(0.6); opacity:0.6; } 50% { transform: translateY(-40px) scale(1); opacity:1; } 100% { transform: translateY(0) scale(0.6); opacity:0.6; } }
+.glitters { position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; }
+.glitter { position:absolute; width:5px; height:5px; border-radius:50%; background: rgba(255,255,255,0.8); animation: float 5s linear infinite; }
+@keyframes float { 0% { transform:translateY(0) scale(0.6); opacity:0.6; } 50% { transform:translateY(-40px) scale(1); opacity:1; } 100% { transform:translateY(0) scale(0.6); opacity:0.6; } }
 
 .overlay {
   background: rgba(245, 230, 220, 0.85);
@@ -50,27 +50,25 @@ h1 { font-size: 28px; color: #7b3f00; margin-bottom: 25px; }
 }
 
 #countdown {
-  font-size: 20px; margin-top: 25px; color: #ffd700;
+  font-size: 20px; margin-top: 25px;
+  color: #7b3f00; /* mesma cor do título */
   background: transparent; box-shadow: none; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
 
 @media(max-width:600px){
-  h1 { font-size: 22px; }
-  #countdown { font-size: 16px; }
-  .button { font-size: 16px; padding: 12px; }
+  h1{font-size:22px;}
+  #countdown{font-size:16px;}
+  .button{font-size:16px;padding:12px;}
 }
 
 /* Partículas da explosão */
 .particle {
-  position: absolute;
-  width: 6px; height: 6px; border-radius: 50%;
-  background: #fff0db;
-  pointer-events: none;
-  animation: explode 0.6s forwards;
+  position: absolute; width:6px; height:6px; border-radius:50%;
+  background:#fff0db; pointer-events:none; animation: explode 0.6s forwards;
 }
 @keyframes explode {
-  0% { opacity:1; transform: translate(0,0) scale(1); }
-  100% { opacity:0; transform: translate(var(--x), var(--y)) scale(0.5); }
+  0%{opacity:1; transform:translate(0,0) scale(1);}
+  100%{opacity:0; transform:translate(var(--x), var(--y)) scale(0.5);}
 }
 </style>
 </head>
@@ -95,21 +93,23 @@ h1 { font-size: 28px; color: #7b3f00; margin-bottom: 25px; }
 </div>
 
 <script>
-// Tocar música automaticamente no celular e desktop
+// Música automática
 window.addEventListener('load', function(){
   const audio = document.getElementById('bgmusic');
   audio.volume = 0.5;
-  audio.play().catch(()=>{ document.body.addEventListener('click',()=>{audio.play();},{once:true}); });
+  audio.play().catch(()=>{
+    document.body.addEventListener('click', ()=>{ audio.play(); }, {once:true});
+  });
 });
 
 // Explosão dos botões
 function explodeAndGo(e,url){
   const button = e.currentTarget;
   for(let i=0;i<20;i++){
-    const p = document.createElement('span');
+    const p=document.createElement('span');
     p.classList.add('particle');
-    const x = (Math.random()-0.5)*300+'px';
-    const y = (Math.random()-0.5)*300+'px';
+    const x=(Math.random()-0.5)*300+'px';
+    const y=(Math.random()-0.5)*300+'px';
     p.style.setProperty('--x',x);
     p.style.setProperty('--y',y);
     p.style.left=(e.offsetX-3)+'px';
@@ -120,7 +120,7 @@ function explodeAndGo(e,url){
   button.style.transform='scale(0.9)';
   button.style.opacity='0';
   button.style.transition='all 0.6s ease';
-  setTimeout(()=>{window.location.href=url;},800); // atraso pra explosão
+  setTimeout(()=>{ window.location.href=url; },800); // atraso pra explosão
 }
 
 // Brilhos
@@ -140,7 +140,7 @@ const weddingDate=new Date("2026-05-23T00:00:00").getTime();
 setInterval(()=>{
   const now=new Date().getTime();
   const diff=weddingDate-now;
-  if(diff<=0){ countdownEl.innerHTML="🎉 O grande dia chegou! 🎊"; return; }
+  if(diff<=0){ countdownEl.innerHTML="🎉 O grande dia chegou! 🎊"; return;}
   const days=Math.floor(diff/(1000*60*60*24));
   const hours=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
   const mins=Math.floor((diff%(1000*60*60))/(1000*60));
