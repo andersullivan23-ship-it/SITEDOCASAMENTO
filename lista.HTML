@@ -156,7 +156,7 @@ h1{
 </head>
 <body>
 
-<!-- Música de fundo e ícone -->
+<!-- Música de fundo e ícone (contínua da página anterior) -->
 <audio id="bgmusic" loop preload="auto">
   <source src="imagens/musica.mp3" type="audio/mp3">
 </audio>
@@ -164,48 +164,51 @@ h1{
 <div class="sound-icon" id="soundIcon">🔊</div>
 
 <div class="overlay">
-  <!-- Logo do casal -->
   <img src="imagens/casal.png" alt="Logo Carolina e Anderson" class="logo">
 
   <h1>🎁 Quer nos presentear?<br>Confira nossas sugestões abaixo.</h1>
 
-  <!-- Botões das listas -->
   <div class="button" onclick="explodeAndGo(event,'https://www.querodecasamento.com.br/lista-de-casamento/carolina-pereira--anderson-henrique')">Quero de Casamento</div>
   <div class="button" onclick="explodeAndGo(event,'http://site.lejour.com.br/lista-de-presentes/carolina-e-anderson')">Lejour</div>
 </div>
 
-<!-- Caixa da contagem regressiva -->
 <div class="countdown-container">
   <h2>⏳ Contagem regressiva até o grande dia</h2>
   <div id="countdown"></div>
 </div>
 
-<!-- Botão de voltar -->
 <div class="button" id="backButton" onclick="explodeAndGo(event,'index.html')">⬅ Voltar</div>
 
 <script>
-// Música contínua da página anterior
+// === Música contínua da página anterior ===
 const audio = document.getElementById('bgmusic');
 const icon = document.getElementById('soundIcon');
 audio.volume = 0.15;
 
-const savedTime = localStorage.getItem('bgmusicTime');
-const savedPaused = localStorage.getItem('bgmusicPaused');
+function initMusic(){
+  const savedTime = localStorage.getItem('bgmusicTime');
+  const savedPaused = localStorage.getItem('bgmusicPaused');
 
-if(savedTime) audio.currentTime = parseFloat(savedTime);
-if(savedPaused === "true") {
-  audio.pause();
-  icon.textContent = "🔈";
-} else {
-  audio.play().catch(()=>{}); 
-  icon.textContent = "🔊";
+  if(savedTime) audio.currentTime = parseFloat(savedTime);
+  if(savedPaused === "true") {
+    audio.pause();
+    icon.textContent = "🔈";
+  } else {
+    audio.play().catch(()=>{});
+    icon.textContent = "🔊";
+  }
+
+  // Atualiza a posição e estado
+  setInterval(()=>{
+    localStorage.setItem('bgmusicTime', audio.currentTime);
+    localStorage.setItem('bgmusicPaused', audio.paused);
+  }, 500);
 }
 
-setInterval(()=>{
-  localStorage.setItem('bgmusicTime', audio.currentTime);
-  localStorage.setItem('bgmusicPaused', audio.paused);
-}, 500);
+// Inicia música no clique (para mobile)
+document.body.addEventListener('click', initMusic, {once:true});
 
+// Alterna play/pause pelo ícone
 icon.addEventListener('click', ()=>{
   if(audio.paused){
     audio.play();
@@ -216,7 +219,13 @@ icon.addEventListener('click', ()=>{
   }
 });
 
-// Explosão dos botões
+// Pequena animação discreta no ícone
+setInterval(()=>{
+  icon.style.transform = "scale(1.1)";
+  setTimeout(()=>{icon.style.transform = "scale(1)";}, 300);
+}, 2000);
+
+// === Explosão dos botões ===
 function explodeAndGo(e,url){
   const button=e.currentTarget;
   for(let i=0;i<20;i++){
@@ -237,7 +246,7 @@ function explodeAndGo(e,url){
   setTimeout(()=>{window.location.href=url;},800);
 }
 
-// Contagem regressiva
+// === Contagem regressiva ===
 const countdownEl=document.getElementById("countdown");
 const weddingDate=new Date("2026-05-23T00:00:00").getTime();
 setInterval(()=>{
