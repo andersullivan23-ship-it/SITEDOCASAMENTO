@@ -84,8 +84,9 @@ h1{
     padding:8px;
     box-shadow:0 2px 8px rgba(0,0,0,0.2);
     user-select:none;
+    transition: all 0.3s ease;
 }
-.sound-icon:hover{background:rgba(255,255,255,0.8);}
+.sound-icon:hover{background:rgba(255,255,255,0.8);transform:scale(1.1);}
 
 /* Contagem regressiva inferior */
 .countdown-container{
@@ -123,8 +124,9 @@ h1{
 </style>
 </head>
 <body>
-<!-- Música de fundo -->
-<audio id="bgmusic" loop autoplay>
+
+<!-- Música de fundo atualizada -->
+<audio id="bgmusic" loop preload="auto">
     <source src="imagens/musica.mp3" type="audio/mp3">
 </audio>
 
@@ -147,17 +149,31 @@ h1{
 <div class="sound-icon" id="soundIcon" onclick="toggleSound()">🔊</div>
 
 <script>
-// Música automática suave
-window.addEventListener('load',()=>{
+// Inicia música com controle suave e compatibilidade mobile
+document.addEventListener('DOMContentLoaded',()=>{
     const audio=document.getElementById('bgmusic');
+    const icon=document.getElementById('soundIcon');
     audio.volume=0.15;
-    const playPromise=audio.play();
-    if(playPromise!==undefined){
-        playPromise.catch(()=>{
-            document.body.addEventListener('click',()=>{audio.play();},{once:true});
-        });
-    }
+
+    const startMusic=()=>{
+        audio.play().catch(()=>{});
+        document.removeEventListener('click',startMusic);
+    };
+    document.addEventListener('click',startMusic);
 });
+
+// Alternar som
+function toggleSound(){
+    const audio=document.getElementById('bgmusic');
+    const icon=document.getElementById('soundIcon');
+    if(audio.paused){
+        audio.play();
+        icon.textContent="🔊";
+    }else{
+        audio.pause();
+        icon.textContent="🔈";
+    }
+}
 
 // Explosão dos botões
 function explodeAndGo(e,url){
@@ -193,14 +209,6 @@ setInterval(()=>{
     const s=Math.floor((diff%(1000*60))/1000);
     countdownEl.innerHTML=`${d} dias, ${h}h ${m}m ${s}s`;
 },1000);
-
-// Som on/off
-function toggleSound(){
-    const audio=document.getElementById('bgmusic');
-    const icon=document.getElementById('soundIcon');
-    if(audio.paused){audio.play(); icon.textContent="🔊";}
-    else{audio.pause(); icon.textContent="🔈";}
-}
 </script>
 </body>
 </html>
