@@ -53,16 +53,9 @@ h1{font-size:26px;color:#c68657;margin-bottom:25px;line-height:1.4;text-shadow:1
 }
 .particle{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff0db;pointer-events:none;animation:explode 0.6s forwards;}
 @keyframes explode{0%{opacity:1; transform:translate(0,0) scale(1);} 100%{opacity:0; transform:translate(var(--x), var(--y)) scale(0.5);}}
-.sound-icon{position:fixed;top:20px;right:20px;font-size:24px;color:#7b3f00;cursor:pointer;background: rgba(255,255,255,0.6);border-radius:50%;padding:12px;box-shadow:0 2px 10px rgba(0,0,0,0.2);user-select:none;display:flex;justify-content:center;align-items:center;transition:all 0.3s ease;z-index:1000;}
-.sound-icon:hover{background: rgba(255,255,255,0.85);transform: scale(1.1);}
 </style>
 </head>
 <body>
-
-<!-- iframe invisível que mantém a música tocando entre páginas -->
-<iframe src="musica.html" style="display:none;" id="musicFrame"></iframe>
-
-<div class="sound-icon" id="soundIcon">🔊</div>
 
 <div class="overlay">
   <img src="imagens/casal.png" alt="Logo Carolina e Anderson" class="logo">
@@ -79,14 +72,6 @@ h1{font-size:26px;color:#c68657;margin-bottom:25px;line-height:1.4;text-shadow:1
 <div class="button" id="backButton" onclick="explodeAndGo(event,'index.html')">⬅ Voltar</div>
 
 <script>
-// Controle do ícone de som para iframe
-const icon = document.getElementById('soundIcon');
-const musicFrame = document.getElementById('musicFrame');
-
-icon.addEventListener('click', () => {
-  musicFrame.contentWindow.postMessage('toggle', '*');
-});
-
 // Explosão dos botões
 function explodeAndGo(e,url){
   const button=e.currentTarget;
