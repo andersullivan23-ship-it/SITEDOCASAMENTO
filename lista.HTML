@@ -12,22 +12,12 @@ body{
   background:url('imagens/fundo.jpg') no-repeat center center fixed;
   background-size:cover;
   min-height:100vh;
-  color:#c68657; /* mesma cor dos botões */
+  color:#c68657; /* cor dos textos igual ao fundo dos botões */
 }
 
-/* Película restaurada */
-.overlay::before{
-  content:"";
-  position:fixed;
-  top:0;left:0;width:100%;height:100%;
-  background:rgba(0,0,0,0.4); /* fosco sutil */
-  backdrop-filter:blur(3px);
-  z-index:0;
-}
-
-/* Container principal */
+/* Película clara */
 .overlay{
-  position:relative;
+  background:rgba(245,230,220,0.85);
   min-height:100vh;
   display:flex;
   flex-direction:column;
@@ -35,17 +25,19 @@ body{
   align-items:center;
   padding:20px;
   z-index:2;
+  position:relative;
 }
 
+/* Título */
 h1{
   font-size:26px;
-  color:#c68657; /* cor igual aos botões */
+  color:#c68657; /* cor dos botões */
   margin-bottom:25px;
   line-height:1.4;
-  text-shadow:1px 1px 3px rgba(0,0,0,0.5);
+  text-shadow:1px 1px 3px rgba(0,0,0,0.2);
 }
 
-/* --- BOTÕES --- */
+/* Botões */
 .button{
   position:relative;
   display:block;
@@ -59,32 +51,23 @@ h1{
   font-size:18px;
   text-decoration:none;
   overflow:hidden;
-  transition:all 0.4s ease;
+  transition:all 0.3s ease;
   cursor:pointer;
-  box-shadow:0 5px 15px rgba(0,0,0,0.25);
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
 }
-
 .button:hover{
-  transform:scale(1.07);
-  background:linear-gradient(90deg,#c68657,#e6b36a,#c68657);
-  background-size:200%;
-  animation:shine 2s linear infinite;
-  box-shadow:0 0 20px rgba(255,215,180,0.8),0 8px 20px rgba(0,0,0,0.3);
-}
-
-@keyframes shine {
-  0% {background-position:0%;}
-  100% {background-position:200%;}
+  transform:scale(1.05);
+  box-shadow:0 0 15px rgba(255,215,180,0.8),0 8px 20px rgba(0,0,0,0.3);
 }
 
 /* Caixa da contagem regressiva */
 .countdown-container {
   position: fixed;
-  bottom: 80px;
+  bottom: 80px; /* acima do botão de voltar */
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
-  background: rgba(0,0,0,0.4); /* caixa levemente mais escura */
+  background: rgba(215,140,100,0.35); /* terracota suave */
   padding: 15px 25px;
   border-radius: 15px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.25);
@@ -95,46 +78,26 @@ h1{
 .countdown-container h2 {
   font-size: 14px;
   margin-bottom: 5px;
-  color: #c68657; /* igual aos botões */
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  color: #c68657; /* mesma cor dos botões */
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
 }
 
 #countdown {
   font-size: 15px;
   font-weight: bold;
-  color: #c68657; /* igual aos botões */
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  color: #c68657; /* mesma cor dos botões */
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
 }
 
-/* --- BOTÃO DE VOLTAR --- */
+/* Botão de voltar */
 #backButton{
   position:fixed;
   bottom:15px;
   left:15px;
-  width:130px;
+  width:120px;
   font-size:16px;
   padding:10px;
   z-index:10;
-  background:linear-gradient(45deg,#c76b4a,#d67a50);
-  color:white;
-  border:none;
-  border-radius:30px;
-  font-weight:600;
-  cursor:pointer;
-  transition:all 0.3s ease;
-  box-shadow:0 4px 12px rgba(0,0,0,0.2);
-}
-
-#backButton:hover{
-  transform:scale(1.07);
-  background:linear-gradient(90deg,#c76b4a,#d67a50,#c76b4a);
-  background-size:200%;
-  animation:shine 2s linear infinite;
-  box-shadow:0 0 15px rgba(255,215,180,0.8),0 8px 20px rgba(0,0,0,0.3);
-}
-
-#backButton:active{
-  transform:scale(0.95);
 }
 
 @media(max-width:600px){
@@ -145,8 +108,13 @@ h1{
 
 /* Partículas da explosão */
 .particle {
-  position:absolute; width:6px; height:6px; border-radius:50%;
-  background:#fff0db; pointer-events:none; animation:explode 0.6s forwards;
+  position:absolute;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#fff0db;
+  pointer-events:none;
+  animation:explode 0.6s forwards;
 }
 @keyframes explode{
   0%{opacity:1; transform:translate(0,0) scale(1);}
@@ -176,7 +144,7 @@ h1{
 </div>
 
 <!-- Botão de voltar -->
-<button id="backButton" onclick="explodeAndGo(event,'index.html')">⬅ Voltar</button>
+<div class="button" id="backButton" onclick="explodeAndGo(event,'index.html')">⬅ Voltar</div>
 
 <script>
 // Música confiável
@@ -205,7 +173,7 @@ function explodeAndGo(e,url){
     setTimeout(()=>p.remove(),600);
   }
   button.style.transform='scale(0.9)';
-  button.style.opacity='0.8';
+  button.style.opacity='0';
   button.style.transition='all 0.6s ease';
   setTimeout(()=>{window.location.href=url;},800);
 }
