@@ -14,8 +14,6 @@ body{
   min-height:100vh;
   color:#c68657;
 }
-
-/* Película clara */
 .overlay{
   background:rgba(245,230,220,0.85);
   min-height:100vh;
@@ -27,86 +25,25 @@ body{
   z-index:2;
   position:relative;
 }
-
-/* Logo do casal */
-.logo{
-  max-width:260px;
-  width:50%;
-  margin-bottom:15px;
-}
-
-/* Título */
-h1{
-  font-size:26px;
-  color:#c68657;
-  margin-bottom:25px;
-  line-height:1.4;
-  text-shadow:1px 1px 3px rgba(0,0,0,0.2);
-}
-
-/* Botões */
+.logo{max-width:260px;width:50%;margin-bottom:15px;}
+h1{font-size:26px;color:#c68657;margin-bottom:25px;line-height:1.4;text-shadow:1px 1px 3px rgba(0,0,0,0.2);}
 .button{
-  position:relative;
-  display:block;
-  width:80%;
-  max-width:300px;
-  padding:15px;
-  margin:12px 0;
-  border-radius:30px;
-  background:linear-gradient(45deg,#c68657,#d9a066);
-  color:white;
-  font-size:18px;
-  text-decoration:none;
-  overflow:hidden;
-  transition:all 0.3s ease;
-  cursor:pointer;
-  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+  position:relative; display:block; width:80%; max-width:300px; padding:15px; margin:12px 0;
+  border-radius:30px; background:linear-gradient(45deg,#c68657,#d9a066); color:white; font-size:18px;
+  text-decoration:none; overflow:hidden; transition:all 0.3s ease; cursor:pointer; box-shadow:0 5px 15px rgba(0,0,0,0.2);
 }
 .button:hover{
   transform:scale(1.05);
   box-shadow:0 0 15px rgba(255,215,180,0.8),0 8px 20px rgba(0,0,0,0.3);
 }
-
-/* Caixa da contagem regressiva */
 .countdown-container {
-  position: fixed;
-  bottom: 80px; 
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  background: rgba(215,140,100,0.35); 
-  padding: 15px 25px;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.25);
-  z-index: 5;
-  width: fit-content;
+  position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+  text-align: center; background: rgba(215,140,100,0.35); padding: 15px 25px;
+  border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.25); z-index: 5; width: fit-content;
 }
-
-.countdown-container h2 {
-  font-size: 14px;
-  margin-bottom: 5px;
-  color: #5C3A21; 
-  text-shadow:1px 1px 2px rgba(0,0,0,0.3);
-}
-
-#countdown {
-  font-size: 15px;
-  font-weight: bold;
-  color: #5C3A21; 
-  text-shadow:1px 1px 2px rgba(0,0,0,0.3);
-}
-
-/* Botão de voltar */
-#backButton{
-  position:fixed;
-  bottom:15px;
-  left:15px;
-  width:120px;
-  font-size:16px;
-  padding:10px;
-  z-index:10;
-}
-
+.countdown-container h2{font-size:14px;margin-bottom:5px;color:#5C3A21;text-shadow:1px 1px 2px rgba(0,0,0,0.3);}
+#countdown{font-size:15px;font-weight:bold;color:#5C3A21;text-shadow:1px 1px 2px rgba(0,0,0,0.3);}
+#backButton{position:fixed; bottom:15px; left:15px; width:120px; font-size:16px; padding:10px; z-index:10;}
 @media(max-width:600px){
   h1{font-size:22px;}
   #countdown{font-size:14px;}
@@ -114,60 +51,22 @@ h1{
   .countdown-container{padding:12px 20px;}
   .countdown-container h2{font-size:12px;}
 }
-
-/* Partículas da explosão */
-.particle {
-  position:absolute;
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:#fff0db;
-  pointer-events:none;
-  animation:explode 0.6s forwards;
-}
-@keyframes explode{
-  0%{opacity:1; transform:translate(0,0) scale(1);}
-  100%{opacity:0; transform:translate(var(--x), var(--y)) scale(0.5);}
-}
-
-/* Ícone de som */
-.sound-icon {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  font-size: 24px;
-  color: #7b3f00;
-  cursor: pointer;
-  background: rgba(255,255,255,0.6);
-  border-radius: 50%;
-  padding: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  user-select: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.3s ease;
-}
-.sound-icon:hover {
-  background: rgba(255,255,255,0.85);
-  transform: scale(1.1);
-}
+.particle{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff0db;pointer-events:none;animation:explode 0.6s forwards;}
+@keyframes explode{0%{opacity:1; transform:translate(0,0) scale(1);} 100%{opacity:0; transform:translate(var(--x), var(--y)) scale(0.5);}}
+.sound-icon{position:fixed;top:20px;right:20px;font-size:24px;color:#7b3f00;cursor:pointer;background: rgba(255,255,255,0.6);border-radius:50%;padding:12px;box-shadow:0 2px 10px rgba(0,0,0,0.2);user-select:none;display:flex;justify-content:center;align-items:center;transition:all 0.3s ease;}
+.sound-icon:hover{background: rgba(255,255,255,0.85);transform: scale(1.1);}
 </style>
 </head>
 <body>
 
-<!-- Música de fundo e ícone (contínua da página anterior) -->
-<audio id="bgmusic" loop preload="auto">
-  <source src="imagens/musica.mp3" type="audio/mp3">
-</audio>
+<!-- iframe invisível que mantém a música tocando entre páginas -->
+<iframe src="musica.html" style="display:none;" id="musicFrame"></iframe>
 
 <div class="sound-icon" id="soundIcon">🔊</div>
 
 <div class="overlay">
   <img src="imagens/casal.png" alt="Logo Carolina e Anderson" class="logo">
-
   <h1>🎁 Quer nos presentear?<br>Confira nossas sugestões abaixo.</h1>
-
   <div class="button" onclick="explodeAndGo(event,'https://www.querodecasamento.com.br/lista-de-casamento/carolina-pereira--anderson-henrique')">Quero de Casamento</div>
   <div class="button" onclick="explodeAndGo(event,'http://site.lejour.com.br/lista-de-presentes/carolina-e-anderson')">Lejour</div>
 </div>
@@ -180,52 +79,15 @@ h1{
 <div class="button" id="backButton" onclick="explodeAndGo(event,'index.html')">⬅ Voltar</div>
 
 <script>
-// === Música contínua da página anterior ===
-const audio = document.getElementById('bgmusic');
+// Controle do ícone de som para iframe
 const icon = document.getElementById('soundIcon');
-audio.volume = 0.15;
+const musicFrame = document.getElementById('musicFrame');
 
-function initMusic(){
-  const savedTime = localStorage.getItem('bgmusicTime');
-  const savedPaused = localStorage.getItem('bgmusicPaused');
-
-  if(savedTime) audio.currentTime = parseFloat(savedTime);
-  if(savedPaused === "true") {
-    audio.pause();
-    icon.textContent = "🔈";
-  } else {
-    audio.play().catch(()=>{});
-    icon.textContent = "🔊";
-  }
-
-  // Atualiza a posição e estado
-  setInterval(()=>{
-    localStorage.setItem('bgmusicTime', audio.currentTime);
-    localStorage.setItem('bgmusicPaused', audio.paused);
-  }, 500);
-}
-
-// Inicia música no clique (para mobile)
-document.body.addEventListener('click', initMusic, {once:true});
-
-// Alterna play/pause pelo ícone
-icon.addEventListener('click', ()=>{
-  if(audio.paused){
-    audio.play();
-    icon.textContent = "🔊";
-  } else {
-    audio.pause();
-    icon.textContent = "🔈";
-  }
+icon.addEventListener('click', () => {
+  musicFrame.contentWindow.postMessage('toggle', '*');
 });
 
-// Pequena animação discreta no ícone
-setInterval(()=>{
-  icon.style.transform = "scale(1.1)";
-  setTimeout(()=>{icon.style.transform = "scale(1)";}, 300);
-}, 2000);
-
-// === Explosão dos botões ===
+// Explosão dos botões
 function explodeAndGo(e,url){
   const button=e.currentTarget;
   for(let i=0;i<20;i++){
@@ -246,7 +108,7 @@ function explodeAndGo(e,url){
   setTimeout(()=>{window.location.href=url;},800);
 }
 
-// === Contagem regressiva ===
+// Contagem regressiva
 const countdownEl=document.getElementById("countdown");
 const weddingDate=new Date("2026-05-23T00:00:00").getTime();
 setInterval(()=>{
