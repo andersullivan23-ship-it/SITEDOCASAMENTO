@@ -52,16 +52,37 @@ h1{
   transform:scale(1.05);
   box-shadow:0 0 15px rgba(255,215,180,0.8),0 8px 20px rgba(0,0,0,0.3);
 }
-/* Partículas da explosão */
-.particle {
-  position:absolute; width:6px; height:6px; border-radius:50%;
-  background:#fff0db; pointer-events:none; animation:explode 0.6s forwards;
+
+/* Caixa da contagem regressiva */
+.countdown-container {
+  position: fixed;
+  bottom: 80px; /* fica acima do botão de voltar */
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  background: rgba(215,140,100,0.35); /* terracota mais escura */
+  padding: 15px 25px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+  z-index: 5;
+  width: fit-content;
 }
-@keyframes explode{
-  0%{opacity:1; transform:translate(0,0) scale(1);}
-  100%{opacity:0; transform:translate(var(--x), var(--y)) scale(0.5);}
+
+.countdown-container h2 {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #8b4513; /* marrom mais suave */
+  text-shadow: 1px 1px 3px rgba(255,255,255,0.4);
 }
-/* Botão de voltar pequeno no canto inferior esquerdo */
+
+#countdown {
+  font-size: 15px;
+  font-weight: bold;
+  color: #8b4513; /* mesmo tom marrom dos nomes */
+  text-shadow: 1px 1px 3px rgba(255,255,255,0.5);
+}
+
+/* Botão de voltar */
 #backButton{
   position:fixed;
   bottom:15px;
@@ -72,38 +93,20 @@ h1{
   z-index:10;
 }
 
-/* Contagem regressiva inferior */
-.countdown-container{
-    position:fixed;
-    bottom:20px;
-    left:50%;
-    transform:translateX(-50%);
-    background:rgba(215,140,100,0.4); /* terracota mais escuro */
-    padding:15px 30px;
-    border-radius:15px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.3);
-    text-align:center;
-    z-index:5;
-}
-.countdown-container h2{
-    font-size:14px;
-    margin-bottom:5px;
-    color:#5C3A21; /* marrom escuro elegante */
-    text-shadow:1px 1px 2px rgba(0,0,0,0.3);
-}
-#countdown{
-    font-size:15px;
-    font-weight:bold;
-    color:#5C3A21; /* marrom escuro elegante */
-    text-shadow:1px 1px 2px rgba(0,0,0,0.3);
-}
-
 @media(max-width:600px){
   h1{font-size:22px;}
-  #countdown{font-size:13px;}
+  #countdown{font-size:14px;}
   .button{font-size:16px;padding:12px;}
-  .countdown-container{padding:12px 20px;}
-  .countdown-container h2{font-size:12px;}
+}
+
+/* Partículas da explosão */
+.particle {
+  position:absolute; width:6px; height:6px; border-radius:50%;
+  background:#fff0db; pointer-events:none; animation:explode 0.6s forwards;
+}
+@keyframes explode{
+  0%{opacity:1; transform:translate(0,0) scale(1);}
+  100%{opacity:0; transform:translate(var(--x), var(--y)) scale(0.5);}
 }
 </style>
 </head>
@@ -115,22 +118,20 @@ h1{
 </audio>
 
 <div class="overlay">
+  <h1>🎁 Quer nos presentear?<br>Confira nossas sugestões abaixo.</h1>
 
-<h1>🎁 Quer nos presentear?<br>Confira nossas sugestões abaixo.</h1>
-
-<!-- Botões das listas com nomes bonitos -->
-<div class="button" onclick="explodeAndGo(event,'https://www.querodecasamento.com.br/lista-de-casamento/carolina-pereira--anderson-henrique')">Quero de Casamento</div>
-<div class="button" onclick="explodeAndGo(event,'http://site.lejour.com.br/lista-de-presentes/carolina-e-anderson')">Lejour</div>
-
+  <!-- Botões das listas -->
+  <div class="button" onclick="explodeAndGo(event,'https://www.querodecasamento.com.br/lista-de-casamento/carolina-pereira--anderson-henrique')">Quero de Casamento</div>
+  <div class="button" onclick="explodeAndGo(event,'http://site.lejour.com.br/lista-de-presentes/carolina-e-anderson')">Lejour</div>
 </div>
 
-<!-- Contagem regressiva inferior -->
+<!-- Caixa da contagem regressiva -->
 <div class="countdown-container">
-    <h2>⏳ Contagem regressiva até o grande dia</h2>
-    <div id="countdown"></div>
+  <h2>⏰ Contagem regressiva para o grande dia 💍</h2>
+  <div id="countdown"></div>
 </div>
 
-<!-- Botão de voltar pequeno -->
+<!-- Botão de voltar -->
 <div class="button" id="backButton" onclick="explodeAndGo(event,'index.html')">⬅ Voltar</div>
 
 <script>
@@ -138,7 +139,9 @@ h1{
 function playMusic(){
   const audio=document.getElementById('bgmusic');
   audio.volume=0.5;
-  audio.play().catch(()=>{document.body.addEventListener('click',()=>{audio.play();},{once:true});});
+  audio.play().catch(()=>{
+    document.body.addEventListener('click',()=>{audio.play();},{once:true});
+  });
 }
 window.addEventListener('load', playMusic);
 
