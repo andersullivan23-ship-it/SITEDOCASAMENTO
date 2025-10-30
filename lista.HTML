@@ -28,6 +28,13 @@ body{
   position:relative;
 }
 
+/* Logo do casal */
+.logo{
+  max-width:260px;
+  width:50%;
+  margin-bottom:15px;
+}
+
 /* Título */
 h1{
   font-size:26px;
@@ -60,30 +67,33 @@ h1{
   box-shadow:0 0 15px rgba(255,215,180,0.8),0 8px 20px rgba(0,0,0,0.3);
 }
 
-/* Caixa da contagem regressiva — NOVA VERSÃO */
-.countdown-container{
-    position:fixed;
-    bottom:80px; /* acima do botão de voltar */
-    left:50%;
-    transform:translateX(-50%);
-    background:rgba(215,140,100,0.4); /* terracota mais escuro */
-    padding:15px 30px;
-    border-radius:15px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.3);
-    text-align:center;
-    z-index:5;
+/* Caixa da contagem regressiva */
+.countdown-container {
+  position: fixed;
+  bottom: 80px; 
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  background: rgba(215,140,100,0.35); 
+  padding: 15px 25px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+  z-index: 5;
+  width: fit-content;
 }
-.countdown-container h2{
-    font-size:14px;
-    margin-bottom:5px;
-    color:#5C3A21; /* marrom escuro elegante */
-    text-shadow:1px 1px 2px rgba(0,0,0,0.3);
+
+.countdown-container h2 {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #5C3A21; 
+  text-shadow:1px 1px 2px rgba(0,0,0,0.3);
 }
-#countdown{
-    font-size:15px;
-    font-weight:bold;
-    color:#5C3A21; /* marrom escuro elegante */
-    text-shadow:1px 1px 2px rgba(0,0,0,0.3);
+
+#countdown {
+  font-size: 15px;
+  font-weight: bold;
+  color: #5C3A21; 
+  text-shadow:1px 1px 2px rgba(0,0,0,0.3);
 }
 
 /* Botão de voltar */
@@ -129,6 +139,9 @@ h1{
 </audio>
 
 <div class="overlay">
+  <!-- Logo do casal -->
+  <img src="imagens/casal.png" alt="Logo Carolina e Anderson" class="logo">
+
   <h1>🎁 Quer nos presentear?<br>Confira nossas sugestões abaixo.</h1>
 
   <!-- Botões das listas -->
@@ -177,7 +190,7 @@ function explodeAndGo(e,url){
   setTimeout(()=>{window.location.href=url;},800);
 }
 
-// Contagem regressiva (nova versão)
+// Contagem regressiva
 const countdownEl=document.getElementById("countdown");
 const weddingDate=new Date("2026-05-23T00:00:00").getTime();
 setInterval(()=>{
