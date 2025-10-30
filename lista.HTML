@@ -27,15 +27,61 @@ body{
 }
 .logo{max-width:260px;width:50%;margin-bottom:15px;}
 h1{font-size:26px;color:#c68657;margin-bottom:25px;line-height:1.4;text-shadow:1px 1px 3px rgba(0,0,0,0.2);}
+
+/* Botão Top animado */
 .button{
-  position:relative; display:block; width:80%; max-width:300px; padding:15px; margin:12px 0;
-  border-radius:30px; background:linear-gradient(45deg,#c68657,#d9a066); color:white; font-size:18px;
-  text-decoration:none; overflow:hidden; transition:all 0.3s ease; cursor:pointer; box-shadow:0 5px 15px rgba(0,0,0,0.2);
+  position: relative;
+  display: block;
+  width: 80%;
+  max-width: 300px;
+  padding: 15px;
+  margin: 12px 0;
+  border-radius: 40px;
+  background: linear-gradient(135deg, #c68657, #d9a066);
+  background-size: 200% 200%;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+  transition: all 0.4s ease;
+}
+.button::before{
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.3), rgba(255,255,255,0));
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+  border-radius: 40px;
 }
 .button:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 15px rgba(255,215,180,0.8),0 8px 20px rgba(0,0,0,0.3);
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.35);
+  background-position: right center;
 }
+.button:hover::before{
+  transform: translateX(100%);
+}
+
+/* Corações da explosão */
+.particle{
+  position:absolute;
+  width:10px;
+  height:10px;
+  background:red;
+  clip-path: polygon(50% 0%, 61% 12%, 75% 12%, 88% 25%, 100% 50%, 88% 75%, 75% 88%, 50% 100%, 25% 88%, 12% 75%, 0% 50%, 12% 25%, 25% 12%, 39% 12%);
+  pointer-events:none;
+  animation:explode 0.8s forwards;
+}
+@keyframes explode{
+  0%{opacity:1; transform:translate(0,0) scale(1);}
+  100%{opacity:0; transform:translate(var(--x), var(--y)) scale(0.3);}
+}
+
 .countdown-container {
   position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
   text-align: center; background: rgba(215,140,100,0.35); padding: 15px 25px;
@@ -43,7 +89,9 @@ h1{font-size:26px;color:#c68657;margin-bottom:25px;line-height:1.4;text-shadow:1
 }
 .countdown-container h2{font-size:14px;margin-bottom:5px;color:#5C3A21;text-shadow:1px 1px 2px rgba(0,0,0,0.3);}
 #countdown{font-size:15px;font-weight:bold;color:#5C3A21;text-shadow:1px 1px 2px rgba(0,0,0,0.3);}
+
 #backButton{position:fixed; bottom:15px; left:15px; width:120px; font-size:16px; padding:10px; z-index:10;}
+
 @media(max-width:600px){
   h1{font-size:22px;}
   #countdown{font-size:14px;}
@@ -51,8 +99,6 @@ h1{font-size:26px;color:#c68657;margin-bottom:25px;line-height:1.4;text-shadow:1
   .countdown-container{padding:12px 20px;}
   .countdown-container h2{font-size:12px;}
 }
-.particle{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff0db;pointer-events:none;animation:explode 0.6s forwards;}
-@keyframes explode{0%{opacity:1; transform:translate(0,0) scale(1);} 100%{opacity:0; transform:translate(var(--x), var(--y)) scale(0.5);}}
 </style>
 </head>
 <body>
@@ -72,25 +118,25 @@ h1{font-size:26px;color:#c68657;margin-bottom:25px;line-height:1.4;text-shadow:1
 <div class="button" id="backButton" onclick="explodeAndGo(event,'index.html')">⬅ Voltar</div>
 
 <script>
-// Explosão dos botões
+// Função de explosão com corações
 function explodeAndGo(e,url){
   const button=e.currentTarget;
   for(let i=0;i<20;i++){
     const p=document.createElement('span');
     p.classList.add('particle');
-    const x=(Math.random()-0.5)*300+'px';
-    const y=(Math.random()-0.5)*300+'px';
+    const x=(Math.random()-0.5)*200+'px';
+    const y=(Math.random()-0.5)*200+'px';
     p.style.setProperty('--x',x);
     p.style.setProperty('--y',y);
-    p.style.left=(e.offsetX-3)+'px';
-    p.style.top=(e.offsetY-3)+'px';
+    p.style.left=(e.offsetX-5)+'px';
+    p.style.top=(e.offsetY-5)+'px';
     button.appendChild(p);
-    setTimeout(()=>p.remove(),600);
+    setTimeout(()=>p.remove(),800);
   }
   button.style.transform='scale(0.9)';
   button.style.opacity='0';
   button.style.transition='all 0.6s ease';
-  setTimeout(()=>{window.location.href=url;},800);
+  setTimeout(()=>{window.location.href=url;},700);
 }
 
 // Contagem regressiva
